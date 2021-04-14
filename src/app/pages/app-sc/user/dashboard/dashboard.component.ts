@@ -143,10 +143,6 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  @HostListener('window:resize', ['$event']) onResize(event) {
-    this.timeline_chart.width(document.getElementById("timeline-body").offsetWidth);
-  }
-
   public chartClicked(e: any): void {
     console.log(e.active[0]._index);
   }

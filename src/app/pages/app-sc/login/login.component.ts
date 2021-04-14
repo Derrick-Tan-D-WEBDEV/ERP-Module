@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     }
     
     this.loginForm =  this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      employee_no: ['', [Validators.required]],
       password: ['', Validators.required]
     });
   }
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     else{
-      this._employeeService.login(value.email,value.password).subscribe((response) => {
+      this._employeeService.login(value.employee_no,value.password).subscribe((response) => {
         if(response.status == true){
           console.log(response);
           this._authService.setAccessToken(response.accessToken);
