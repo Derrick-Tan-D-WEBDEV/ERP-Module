@@ -17,6 +17,7 @@ import { ComponentsModule } from "./components/components.module";
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     TagInputModule,
     GraphQLModule,
     KonvaModule,
-    DragDropModule
+    DragDropModule,
+    DataTablesModule
   ],
   declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, UserLayoutComponent ],
   providers: [],

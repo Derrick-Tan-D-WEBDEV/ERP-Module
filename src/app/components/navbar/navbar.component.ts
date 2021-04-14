@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from "@angular/core";
-import { ROUTES } from "../sidebar/sidebar.component";
+import { ROUTES_ADMIN, ROUTES_USER } from "../sidebar/sidebar.component";
 import { Router, Event, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
 
 import {
@@ -26,12 +26,21 @@ export class NavbarComponent implements OnInit {
   public _username:String;
   public _profile_pic:String;
   public _credits:String;
+
+  public id:any;
+  public api_key:any;
+  public role:any;
+
   constructor(
     location: Location,
     private element: ElementRef,
     private router: Router,
     private _authService:AuthService
   ) {
+    this.id = this._authService.getUserID();
+    this.api_key = this._authService.getAccessToken();
+    this.role = this._authService.getRole();
+
     this.location = location;
     this.router.events.subscribe((event: Event) => {
        if (event instanceof NavigationStart) {
@@ -59,7 +68,13 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.listTitles = ROUTES.filter(listTitle => listTitle);
+    
+    if(this.role == "User"){
+      this.listTitles = ROUTES_USER.filter(listTitle => listTitle);
+
+    }else if(this.role == "Admin"){
+      this.listTitles = ROUTES_ADMIN.filter(listTitle => listTitle);
+    }
     this._id = this._authService.getUserID();
     this._token = this._authService.getAccessToken();
     this._role = this._authService.getRole();

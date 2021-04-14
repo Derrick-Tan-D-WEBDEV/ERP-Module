@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { AuthService } from "src/app/services/auth.service";
 
 var misc: any = {
   sidebar_mini_active: true
@@ -29,41 +30,29 @@ export interface ChildrenItems2 {
   title?: string;
   type?: string;
 }
-//Menu Items
-// export const ROUTES: RouteInfo[] = [
-//   {
-//     path: "/dashboards",
-//     title: "Dashboards",
-//     type: "sub",
-//     icontype: "ni-shop text-primary",
-//     isCollapsed: true,
-//     children: [
-//       { path: "dashboard", title: "Dashboard", type: "link" },
-//       { path: "alternative", title: "Alternative", type: "link" }
-//     ]
-//   },
-//   {
-//     path: "/forms",
-//     title: "Forms",
-//     type: "sub",
-//     icontype: "ni-single-copy-04 text-pink",
-//     collapse: "forms",
-//     isCollapsed: true,
-//     children: [
-//       { path: "elements", title: "Elements", type: "link" },
-//       { path: "components", title: "Components", type: "link" },
-//       { path: "validation", title: "Validation", type: "link" }
-//     ]
-//   },
-//   {
-//     path: "/widgets",
-//     title: "Widgets",
-//     type: "link",
-//     icontype: "ni-archive-2 text-green"
-//   }
-// ];
 
-export const ROUTES: RouteInfo[] = [
+export const ROUTES_USER: RouteInfo[] = [
+  {
+    path: "/user/dashboard",
+    title: "Dashboard",
+    type: "link",
+    icontype: "fas fa-th-large text-primary",
+  },
+  {
+    path: "/user/view-standard-part",
+    title: "View Standard Part",
+    type: "link",
+    icontype: "far fa-eye text-primary",
+  },
+  {
+    path: "/user/view-own-standard-part",
+    title: "View Own Standard Part",
+    type: "link",
+    icontype: "far fa-eye text-primary",
+  }
+];
+
+export const ROUTES_ADMIN: RouteInfo[] = [
   {
     path: "/user/dashboard",
     title: "Dashboard",
@@ -82,7 +71,7 @@ export const ROUTES: RouteInfo[] = [
       { path: "list-charts", title: "Charts", type: "link" },  
       { path: "list-dashboards", title: "Dashboard", type: "link" }
     ]
-  },
+  }
 ];
 
 @Component({
@@ -94,13 +83,28 @@ export class SidebarComponent implements OnInit {
   public menuItems: any[];
   public isCollapsed = true;
 
-  constructor(private router: Router) {}
+  public id:any;
+  public api_key:any;
+  public role:any;
+
+  constructor(private router: Router, private _authService: AuthService) {}
 
   ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
-    this.router.events.subscribe(event => {
-      this.isCollapsed = true;
-    });
+    this.id = this._authService.getUserID();
+    this.api_key = this._authService.getAccessToken();
+    this.role = this._authService.getRole();
+    if(this.role == "User"){
+      this.menuItems = ROUTES_USER.filter(menuItem => menuItem);
+      this.router.events.subscribe(event => {
+        this.isCollapsed = true;
+      });
+
+    }else if(this.role == "Admin"){
+      this.menuItems = ROUTES_ADMIN.filter(menuItem => menuItem);
+      this.router.events.subscribe(event => {
+        this.isCollapsed = true;
+      });
+    }
   }
   onMouseEnterSidenav() {
     if (!document.body.classList.contains("g-sidenav-pinned")) {

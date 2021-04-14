@@ -14,6 +14,10 @@ import { BsDropdownModule, CollapseModule } from 'ngx-bootstrap';
 import { ChartsModule } from 'ng2-charts';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
+import { ViewStandardPartComponent } from 'src/app/pages/app-sc/user/view-standard-part/view-standard-part.component';
+import { AddStandardPartComponent } from 'src/app/pages/app-sc/user/add-standard-part/add-standard-part.component';
+import { DataTablesModule } from "angular-datatables";
+import { ViewOwnStandardPartComponent } from 'src/app/pages/app-sc/user/view-own-standard-part/view-own-standard-part.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -27,10 +31,14 @@ import { MonacoEditorModule } from 'ngx-monaco-editor';
     BsDropdownModule.forRoot(),
     ChartsModule,
     DragDropModule,
-    MonacoEditorModule.forRoot()
+    MonacoEditorModule.forRoot(),
+    DataTablesModule
   ],
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    AddStandardPartComponent,
+    ViewStandardPartComponent,
+    ViewOwnStandardPartComponent
   ]
 })
 export class UserLayoutModule {}
