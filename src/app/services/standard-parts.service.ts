@@ -54,4 +54,12 @@ export class StandardPartsService {
     }),
     catchError(this.handleError));
   }
+
+  getAllSPCategory(id):Observable<any>{
+    return this.httpClient.get<any>(this.base_path+'getAllSPCategory').pipe(
+      map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
 }

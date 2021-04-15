@@ -1,1 +1,94 @@
-<p>add-standard-part works!</p>
+<div class=" header bg-dark pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-6 col-7">
+            <h6 class=" h2 text-white d-inline-block mb-0">Add Standard Part</h6>
+  
+            <nav
+              aria-label="breadcrumb"
+              class=" d-none d-md-inline-block ml-md-4"
+            >
+              <ol class=" breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class=" breadcrumb-item">
+                  <a href="javascript:void(0)"> <i class=" fas fa-home"> </i> </a>
+                </li>
+  
+                <li class=" breadcrumb-item">
+                  <a href="javascript:void(0)"> Add Standard Part </a>
+                </li>
+  
+              </ol>
+            </nav>
+          </div>
+        </div>
+  
+        <div class=" row">
+          <div class=" col-sm-12">
+              
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  
+  <div class=" container-fluid mt--6">
+    <div class="row">
+      <div class="col-sm-12" >
+        <div class=" card card-stats">
+          <div class=" card-body">
+            <form role="form" [formGroup]="addForm" (ngSubmit)="add(addForm.value)" autocomplete="off"> 
+                <div class="form-group mb-3">
+                  <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.sp_category.errors }">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="ni ni-email-83"></i
+                      ></span>
+                    </div>
+                    <select
+                        class="form-control"
+                        placeholder="Category"
+                        formControlName="sp_category"
+                        
+                    >
+                        <option *ngFor="let spc of sp_category">{{spc.type}} - {{spc.description}}</option>
+                    </select>
+                  </div>
+                  <div *ngIf="isSubmitted && f.employee_no.errors" class="help-block">
+                    <div *ngIf="f.employee_no.errors.required">Employee No is required!</div>
+                  </div>
+
+                </div>
+                <div class="form-group">
+                  <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.password.errors }">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="ni ni-lock-circle-open"></i>
+                        </span>
+                    </div>
+                    <input
+                      class="form-control"
+                      placeholder="Password"
+                      formControlName="password"
+                      type="password"
+                    />
+                  </div>
+                  <div *ngIf="isSubmitted && f.password.errors" class="help-block">
+                    <div *ngIf="f.password.errors.required">Password is required!</div>
+                  </div>
+                </div>
+
+                <div class="text-left">
+                  <button type="submit" class="btn btn-default my-3">
+                    Add
+                  </button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div> 
+    </div> 
+  </div>
+
+  
