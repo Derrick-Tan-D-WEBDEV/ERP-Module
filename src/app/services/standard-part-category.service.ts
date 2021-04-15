@@ -7,8 +7,7 @@ import { catchError, map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class StandardPartsService {
-
+export class StandardPartCategoryService {
 
   constructor(public router: Router,private httpClient: HttpClient) { }
 
@@ -29,31 +28,21 @@ export class StandardPartsService {
       'Something bad happened; please try again later.');
   };
 
-  base_path = 'http://192.168.31.137:4000/SP/';
+  base_path = 'http://192.168.31.137:4000/SPCategory/';
 
-  getAllSP():Observable<any>{
-    return this.httpClient.get<any>(this.base_path+'getAllSP').pipe(
+  getAllSPCategory():Observable<any>{
+    return this.httpClient.get<any>(this.base_path+'getAllSPCategory').pipe(
       map((res) => {
         return res;
     }),
     catchError(this.handleError));
   }
 
-  getSPByUserID(user_id):Observable<any>{
-      return this.httpClient.post<any>(this.base_path+'getByUserIdSP',{user_id}).pipe(
-        map((res) => {
-          return res;
-      }),
-      catchError(this.handleError));
-  }
-
-  getSPByID(id):Observable<any>{
-    return this.httpClient.post<any>(this.base_path+'getOneSP',{id}).pipe(
+  getByIdSPCategory(id):Observable<any>{
+    return this.httpClient.post<any>(this.base_path+'getByIdSPCategory',{id}).pipe(
       map((res) => {
         return res;
     }),
     catchError(this.handleError));
   }
-
-
 }
