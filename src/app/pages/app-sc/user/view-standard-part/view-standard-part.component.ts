@@ -26,7 +26,7 @@ export class ViewStandardPartComponent implements OnInit {
       pagingType: 'full_numbers',
       scrollX: true
     };
-    
+    this.addSP();
   }
 
   getAllSPByUserID(){
@@ -53,5 +53,31 @@ export class ViewStandardPartComponent implements OnInit {
     });
   }
 
+  addSP(){
+    const  data = {​​​​​​​​"main":{​​​​​​​​"id":1,"type":"Actuators"}​​​​​​​​,
+    "sub":[{​​​​​​​​
+    "id":1,
+    "type_code":"Actuators"
+    }​​​​​​​]};
+    this._standardPartService.addSP(data​​​​​​​​).subscribe((response) => {
+      console.log(response);
+    },
+    error => {
+      this._toastrService.show(
+        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to login!</span> <span data-notify="message">Please check your credentials! Please contact the support, if needed!</span></div>',
+        "",
+        {
+          timeOut: 1000,
+          closeButton: true,
+          enableHtml: true,
+          tapToDismiss: false,
+          titleClass: "alert-title",
+          positionClass: "toast-bottom-center",
+          toastClass:
+            "ngx-toastr alert alert-dismissible alert-danger alert-notify"
+        }
+      );
+    });
+  }
 
 }
