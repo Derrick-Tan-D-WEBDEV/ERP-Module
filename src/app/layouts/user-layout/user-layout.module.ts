@@ -18,6 +18,7 @@ import { ViewStandardPartComponent } from 'src/app/pages/app-sc/user/view-standa
 import { AddStandardPartComponent } from 'src/app/pages/app-sc/user/add-standard-part/add-standard-part.component';
 import { DataTablesModule } from "angular-datatables";
 import { ViewOwnStandardPartComponent } from 'src/app/pages/app-sc/user/view-own-standard-part/view-own-standard-part.component';
+import { AddStandardPartMsComponent } from 'src/app/pages/app-sc/user/add-standard-part-ms/add-standard-part-ms.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -38,7 +39,8 @@ import { ViewOwnStandardPartComponent } from 'src/app/pages/app-sc/user/view-own
     DashboardComponent,
     AddStandardPartComponent,
     ViewStandardPartComponent,
-    ViewOwnStandardPartComponent
+    ViewOwnStandardPartComponent,
+    AddStandardPartMsComponent
   ]
 })
 export class UserLayoutModule {}

@@ -23,7 +23,15 @@ export class AddStandardPartComponent implements OnInit {
     this.getAllSPCategory();
     this.addForm =  this.formBuilder.group({
       sp_category: ['', [Validators.required]],
-      password: ['', Validators.required]
+      type_item: ['', Validators.required],
+      product_part_number: ['', Validators.required],
+      greatech_drawing_number: ['', Validators.required],
+      description: ['', Validators.required],
+      brand: ['', Validators.required],
+      uom: ['', Validators.required],
+      remark: ['', Validators.required],
+      assign_material: ['', Validators.required],
+      assign_weight: ['', Validators.required]
     });
   }
 
@@ -31,8 +39,8 @@ export class AddStandardPartComponent implements OnInit {
     return this.addForm.controls
   }
 
-  add(){
-
+  add(values){
+    console.log(values);
   }
 
   getAllSPCategory(){
@@ -41,7 +49,7 @@ export class AddStandardPartComponent implements OnInit {
     },
     error => {
       this._toastrService.show(
-        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to login!</span> <span data-notify="message">Please check your credentials! Please contact the support, if needed!</span></div>',
+        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to retrieve category!</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
         "",
         {
           timeOut: 1000,

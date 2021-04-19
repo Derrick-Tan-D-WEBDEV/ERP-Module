@@ -62,24 +62,167 @@
 
                 </div>
                 <div class="form-group">
-                  <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.password.errors }">
+                  <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.type_item.errors }">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
-                            <i class="ni ni-lock-circle-open"></i>
+                            <i class="fas fa-font"></i>
                         </span>
                     </div>
                     <input
                       class="form-control"
-                      placeholder="Password"
-                      formControlName="password"
-                      type="password"
+                      placeholder="Type Item"
+                      formControlName="type_item"
+                      type="text"
                     />
                   </div>
-                  <div *ngIf="isSubmitted && f.password.errors" class="help-block">
-                    <div *ngIf="f.password.errors.required">Password is required!</div>
+                  <div *ngIf="isSubmitted && f.type_item.errors" class="help-block">
+                    <div *ngIf="f.type_item.errors.required">Type Item is required!</div>
                   </div>
                 </div>
-
+                <div class="form-group">
+                  <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.product_part_number.errors }">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-box"></i>
+                        </span>
+                    </div>
+                    <input
+                      class="form-control"
+                      placeholder="Product Part Number"
+                      formControlName="product_part_number"
+                      type="text"
+                    />
+                  </div>
+                  <div *ngIf="isSubmitted && f.product_part_number.errors" class="help-block">
+                    <div *ngIf="f.product_part_number.errors.required">Product Part Number is required!</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.greatech_drawing_number.errors }">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-image"></i>
+                        </span>
+                    </div>
+                    <input
+                      class="form-control"
+                      placeholder="Greatech Drawing Number"
+                      formControlName="greatech_drawing_number"
+                      type="text"
+                    />
+                  </div>
+                  <div *ngIf="isSubmitted && f.greatech_drawing_number.errors" class="help-block">
+                    <div *ngIf="f.greatech_drawing_number.errors.required">Greatech Drawing Number is required!</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.description.errors }">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-file-alt"></i>
+                        </span>
+                    </div>
+                    <input
+                      class="form-control"
+                      placeholder="Description"
+                      formControlName="description"
+                      type="text"
+                    />
+                  </div>
+                  <div *ngIf="isSubmitted && f.description.errors" class="help-block">
+                    <div *ngIf="f.description.errors.required">Description is required!</div>
+                  </div>
+                </div>     
+                <div class="form-group">
+                  <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.brand.errors }">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-copyright"></i>
+                        </span>
+                    </div>
+                    <input
+                      class="form-control"
+                      placeholder="Brand"
+                      formControlName="brand"
+                      type="text"
+                    />
+                  </div>
+                  <div *ngIf="isSubmitted && f.brand.errors" class="help-block">
+                    <div *ngIf="f.brand.errors.required">Brand is required!</div>
+                  </div>
+                </div>  
+                <div class="form-group">
+                  <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.uom.errors }">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-tag"></i>
+                        </span>
+                    </div>
+                    <input
+                      class="form-control"
+                      placeholder="Uom"
+                      formControlName="uom"
+                      type="text"
+                    />
+                  </div>
+                  <div *ngIf="isSubmitted && f.uom.errors" class="help-block">
+                    <div *ngIf="f.uom.errors.required">Uom is required!</div>
+                  </div>
+                </div>              
+                <div class="form-group">
+                  <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.remark.errors }">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-marker"></i>
+                        </span>
+                    </div>
+                    <input
+                      class="form-control"
+                      placeholder="Remark"
+                      formControlName="remark"
+                      type="text"
+                    />
+                  </div>
+                  <div *ngIf="isSubmitted && f.remark.errors" class="help-block">
+                    <div *ngIf="f.remark.errors.required">Remark is required!</div>
+                  </div>
+                </div>     
+                <div class="form-group">
+                  <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.assign_material.errors }">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-gem"></i>
+                        </span>
+                    </div>
+                    <input
+                      class="form-control"
+                      placeholder="Assign Material"
+                      formControlName="assign_material"
+                      type="text"
+                    />
+                  </div>
+                  <div *ngIf="isSubmitted && f.assign_material.errors" class="help-block">
+                    <div *ngIf="f.assign_material.errors.required">Assign Material is required!</div>
+                  </div>
+                </div>       
+                <div class="form-group">
+                  <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.assign_weight.errors }">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-weight-hanging"></i>
+                        </span>
+                    </div>
+                    <input
+                      class="form-control"
+                      placeholder="Assign Weight"
+                      formControlName="assign_weight"
+                      type="text"
+                    />
+                  </div>
+                  <div *ngIf="isSubmitted && f.assign_weight.errors" class="help-block">
+                    <div *ngIf="f.assign_weight.errors.required">Assign Weight is required!</div>
+                  </div>
+                </div>                       
                 <div class="text-left">
                   <button type="submit" class="btn btn-default my-3">
                     Add
