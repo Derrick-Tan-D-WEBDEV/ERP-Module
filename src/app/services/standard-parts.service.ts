@@ -56,6 +56,7 @@ export class StandardPartsService {
   }
 
   addSP(data):Observable<any>{
+    var product_part_number = data.product_part_number;
     return this.httpClient.post<any>(this.base_path+'createSP',{data}).pipe(
       map((res) => {
         return res;

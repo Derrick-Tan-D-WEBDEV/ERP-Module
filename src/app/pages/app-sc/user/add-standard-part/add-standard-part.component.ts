@@ -40,8 +40,10 @@ export class AddStandardPartComponent implements OnInit {
   }
 
   add(values){
+    values["user_id"] = this._authService.getUserID();
+    console.log(values);
     this._standardPartService.addSP(values).subscribe((response) => {
-      this.sp_category = response;
+      console.log(response);
     },
     error => {
       this._toastrService.show(
