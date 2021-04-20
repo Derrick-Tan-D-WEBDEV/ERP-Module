@@ -17,12 +17,12 @@ import { StandardPartCategoryService } from 'src/app/services/standard-part-cate
 export class AddStandardPartComponent implements OnInit {
   sp_category:any;
   addForm: FormGroup;
-  constructor(private _chRef: ChangeDetectorRef,private _standardPartCategoryService:StandardPartCategoryService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
+  constructor(private _standardPartService:StandardPartsService,private _chRef: ChangeDetectorRef,private _standardPartCategoryService:StandardPartCategoryService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
     this.getAllSPCategory();
     this.addForm =  this.formBuilder.group({
-      sp_category: ['', [Validators.required]],
+      sp_category: ['', Validators.required],
       type_item: ['', Validators.required],
       product_part_number: ['', Validators.required],
       greatech_drawing_number: ['', Validators.required],
@@ -40,7 +40,7 @@ export class AddStandardPartComponent implements OnInit {
   }
 
   add(values){
-    this._standardPartCategoryService.getAllSPCategory().subscribe((response) => {
+    this._standardPartService.addSP(values).subscribe((response) => {
       this.sp_category = response;
     },
     error => {
