@@ -25,7 +25,7 @@ export class AddStandardPartComponent implements OnInit {
       sp_category: ['', Validators.required],
       type_item: ['', Validators.required],
       product_part_number: ['', Validators.required],
-      greatech_drawing_number: ['', Validators.required],
+      greatech_drawing_naming: ['', Validators.required],
       description: ['', Validators.required],
       brand: ['', Validators.required],
       uom: ['', Validators.required],
