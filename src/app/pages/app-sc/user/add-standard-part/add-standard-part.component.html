@@ -40,6 +40,7 @@
           <div class=" card-body">
             <h2>Add Standard Parts</h2>
             <form role="form" [formGroup]="addForm" (ngSubmit)="add(addForm.value)" autocomplete="off"> 
+                <label>Category</label>
                 <div class="form-group mb-3">
                   <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.sp_category.errors }">
                     <div class="input-group-prepend">
@@ -61,6 +62,7 @@
                   </div>
 
                 </div>
+                <label>Type Item</label>
                 <div class="form-group">
                   <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.type_item.errors }">
                     <div class="input-group-prepend">
@@ -79,6 +81,7 @@
                     <div *ngIf="f.type_item.errors.required">Type Item is required!</div>
                   </div>
                 </div>
+                <label>Product Part Number</label>
                 <div class="form-group">
                   <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.product_part_number.errors }">
                     <div class="input-group-prepend">
@@ -97,6 +100,7 @@
                     <div *ngIf="f.product_part_number.errors.required">Product Part Number is required!</div>
                   </div>
                 </div>
+                <label>Greatech Drawing Naming</label>
                 <div class="form-group">
                   <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.greatech_drawing_naming.errors }">
                     <div class="input-group-prepend">
@@ -115,6 +119,7 @@
                     <div *ngIf="f.greatech_drawing_naming.errors.required">Greatech Drawing Naming is required!</div>
                   </div>
                 </div>
+                <label>Description</label>
                 <div class="form-group">
                   <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.description.errors }">
                     <div class="input-group-prepend">
@@ -133,6 +138,7 @@
                     <div *ngIf="f.description.errors.required">Description is required!</div>
                   </div>
                 </div>     
+                <label>Brand</label>
                 <div class="form-group">
                   <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.brand.errors }">
                     <div class="input-group-prepend">
@@ -151,6 +157,7 @@
                     <div *ngIf="f.brand.errors.required">Brand is required!</div>
                   </div>
                 </div>  
+                <label>UOM</label>
                 <div class="form-group">
                   <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.uom.errors }">
                     <div class="input-group-prepend">
@@ -168,7 +175,8 @@
                   <div *ngIf="isSubmitted && f.uom.errors" class="help-block">
                     <div *ngIf="f.uom.errors.required">Uom is required!</div>
                   </div>
-                </div>              
+                </div>       
+                <label>Remark</label>       
                 <div class="form-group">
                   <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.remark.errors }">
                     <div class="input-group-prepend">
@@ -187,6 +195,7 @@
                     <div *ngIf="f.remark.errors.required">Remark is required!</div>
                   </div>
                 </div>     
+                <label>Assign Material</label>
                 <div class="form-group">
                   <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.assign_material.errors }">
                     <div class="input-group-prepend">
@@ -204,7 +213,8 @@
                   <div *ngIf="isSubmitted && f.assign_material.errors" class="help-block">
                     <div *ngIf="f.assign_material.errors.required">Assign Material is required!</div>
                   </div>
-                </div>       
+                </div>   
+                <label>Assign Weight</label>    
                 <div class="form-group">
                   <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.assign_weight.errors }">
                     <div class="input-group-prepend">
