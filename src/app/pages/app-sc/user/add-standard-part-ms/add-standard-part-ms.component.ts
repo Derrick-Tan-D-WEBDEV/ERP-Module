@@ -22,10 +22,11 @@ export class AddStandardPartMsComponent implements OnInit {
 
   ngOnInit() {
     this.getAllSPCategory();
+    
     this.addForm =  this.formBuilder.group({
-      sp_category: ['', Validators.required],
+      sp_category: ['', Validators.required],//this
       type_item: ['', Validators.required],
-      product_part_number: ['', Validators.required],
+      product_part_number: ['', Validators.required], 
       greatech_drawing_naming: ['', Validators.required],
       description: ['', Validators.required],
       brand: ['', Validators.required],
@@ -36,6 +37,7 @@ export class AddStandardPartMsComponent implements OnInit {
       folder_location: ['', Validators.required],
       subs: this.formBuilder.array([])
     });
+    this.addSub();
   }
   
   get f_sub() :FormArray {
@@ -48,8 +50,15 @@ export class AddStandardPartMsComponent implements OnInit {
 
   newSub(): FormGroup {
     return this.formBuilder.group({
-      skill: '',
-      exp: '',
+      type_item: ['', Validators.required],
+      product_part_number: ['', Validators.required], 
+      greatech_drawing_naming: ['', Validators.required],
+      description: ['', Validators.required],
+      brand: ['', Validators.required],
+      uom: ['', Validators.required],
+      remark: ['', Validators.required],
+      assign_material: ['', Validators.required],
+      assign_weight: ['', Validators.required]
     })
   }
 
@@ -69,7 +78,7 @@ export class AddStandardPartMsComponent implements OnInit {
       return;
     }
     else{
-      this._standardPartService.addSP(values).subscribe((response) => {
+      this._standardPartService.addSPMS(values).subscribe((response) => {
         console.log(response);
         if(response.status){
           this._toastrService.show(

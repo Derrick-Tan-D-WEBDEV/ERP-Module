@@ -256,19 +256,46 @@
                 
              
                 <div class="badge badge-warning mb-3">Sub</div>
+                <br>
                 <button type="button" class="btn btn-sm btn-default" (click)="addSub()">Add Sub</button>
                 <div formArrayName="subs">
-                  <div *ngFor="let sub of f_sub.controls; let i=index">
-                    <div [formGroupName]="i">
-                      <label>{{i}}</label>
-                      skill name :
-                      <input type="text" formControlName="skill">
-                      exp:
-                      <input type="text" formControlName="exp">
-               
-                      <button (click)="removeSub(i)">Remove</button>
-                    </div>
-                  </div>
+                  <table class="table table-responsive">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Type Item</th>
+                        <th>Product Part Number</th>
+                        <th>Greatech Drawing Naming</th>
+                        <th>Description</th>
+                        <th>Brand</th>
+                        <th>UOM</th>
+                        <th>Remark</th>
+                        <th>Assign Material</th>
+                        <th>Assign Weight</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container *ngFor="let sub of f_sub.controls; let i=index">
+                        <tr [formGroupName]="i">
+                          <td>Sub #{{i}} | </td>
+  
+                          <td><input type="text" formControlName="type_item" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.type_item.errors }"></td>
+                          <td><input type="text" formControlName="product_part_number" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.product_part_number.errors }"></td>
+                          <td><input type="text" formControlName="greatech_drawing_naming" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.greatech_drawing_naming.errors }"></td>
+                          <td><input type="text" formControlName="description" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.description.errors }"></td>
+                          <td><input type="text" formControlName="brand" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.brand.errors }"></td>
+                          <td><input type="text" formControlName="uom" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.uom.errors }"></td>
+                          <td><input type="text" formControlName="remark" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.remark.errors }"></td>
+                          <td><input type="text" formControlName="assign_material" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.assign_material.errors }"></td>
+                          <td><input type="text" formControlName="assign_weight" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.assign_weight.errors }"></td>
+                          <td><button class="btn btn-warning btn-sm" (click)="removeSub(i)"><i class="fas fa-dumpster"></i></button></td>
+                          
+                        </tr>
+                      </ng-container>
+                    </tbody>
+
+                  </table>
                 </div> 
                 <div class="text-left">
                   <hr>

@@ -60,7 +60,7 @@ export class AdminLoginComponent implements OnInit {
           console.log(response);
           this._authService.setAccessToken(response.accessToken);
           this._authService.setUsername(response.name);
-          this._authService.setRole("User");
+          this._authService.setRole("Admin");
           this._authService.setID(response.id);
           this._toastrService.show(
             '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Login Success!</span> <span data-notify="message">Welcome back to Showcaseinterior!</span></div>',
