@@ -47,6 +47,14 @@ export class StandardPartsService {
       catchError(this.handleError));
   }
 
+  getSPByCatID(cat_id):Observable<any>{
+    return this.httpClient.post<any>(this.base_path+'getByCatIdSP',{cat_id}).pipe(
+      map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
+
   getSPByID(id):Observable<any>{
     return this.httpClient.post<any>(this.base_path+'getOneSP',{id}).pipe(
       map((res) => {

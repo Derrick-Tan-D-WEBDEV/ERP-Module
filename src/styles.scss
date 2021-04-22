@@ -91,6 +91,17 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
     background-color: #212529 !important;
 }
 
+.auth-admin-bg-img {
+    background:linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.9)), url(https://images.pexels.com/photos/2058128/pexels-photo-2058128.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+    background-size:cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+  
+.auth-admin-bg-default{
+    background-color: #212529 !important;
+}
+
 /**Card Project**/
 .card-project{
     max-height: 100px;

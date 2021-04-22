@@ -12,6 +12,7 @@ import { ToastrModule } from "ngx-toastr";
 import { LoginComponent } from "src/app/pages/app-sc/login/login.component";
 import { BsDropdownModule, CollapseModule } from "ngx-bootstrap";
 import SHA3 from "sha3";
+import { AdminLoginComponent } from "src/app/pages/app-sc/admin-login/admin-login.component";
 
 
 
@@ -26,7 +27,8 @@ import SHA3 from "sha3";
     BsDropdownModule.forRoot()
   ],
   declarations: [
-    LoginComponent
+    LoginComponent,
+    AdminLoginComponent
   ]
 })
 export class AuthLayoutModule {}

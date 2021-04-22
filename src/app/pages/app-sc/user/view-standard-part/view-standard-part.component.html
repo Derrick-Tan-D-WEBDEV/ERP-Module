@@ -38,6 +38,20 @@
         <div class=" card card-stats">
           <div class=" card-body">
             <div class=" row">
+              <div class="col-12 mb-2">
+                <div class="badge badge-warning">Sort By Category</div>
+                <br><br>
+                <select
+                    class="form-control"
+                    placeholder="Category"  
+                    id="category_id"
+                    (change)="categoryOnChange($event.target.value)"
+                >
+                    <option value="" selected>--Select a category--</option>
+                    <option *ngFor="let spc of sp_category;let i = index" value="{{spc.id}}" >{{spc.type}} - {{spc.description}}</option>
+                </select>
+                <hr>
+              </div>
               <div class="col-12 text-center">
                 <table datatable [dtOptions]="dtOptions" *ngIf="tableDataReady == 1"  class="display nowrap" cellspacing="0" width="100%">
                   <thead>

@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { StandardPartsService } from 'src/app/services/standard-parts.service';
 import { DataTableDirective } from 'angular-datatables';
+import { StandardPartCategoryService } from 'src/app/services/standard-part-category.service';
 @Component({
   selector: 'app-view-standard-part',
   templateUrl: './view-standard-part.component.html',
@@ -16,9 +17,9 @@ export class ViewStandardPartComponent implements OnInit {
 
   standard_parts:any; 
   dtOptions: DataTables.Settings = {};
-
+  sp_category:any;
   tableDataReady:any = 0;
-  constructor(private _chRef: ChangeDetectorRef,private _standardPartService:StandardPartsService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
+  constructor(private _chRef: ChangeDetectorRef,private _standardPartCategoryService:StandardPartCategoryService,private _standardPartService:StandardPartsService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
     this.getAllSPByUserID();
@@ -26,7 +27,11 @@ export class ViewStandardPartComponent implements OnInit {
       pagingType: 'full_numbers',
       scrollX: true
     };
-    this.addSP();
+    this.getAllSPCategory();
+  }
+  
+  categoryOnChange(val){
+    console.log(val);
   }
 
   getAllSPByUserID(){
@@ -53,18 +58,13 @@ export class ViewStandardPartComponent implements OnInit {
     });
   }
 
-  addSP(){
-    const  data = {​​​​​​​​"main":{​​​​​​​​"id":1,"type":"Actuators"}​​​​​​​​,
-    "sub":[{​​​​​​​​
-    "id":1,
-    "type_code":"Actuators"
-    }​​​​​​​]};
-    this._standardPartService.addSP(data​​​​​​​​).subscribe((response) => {
-      console.log(response);
+  getAllSPCategory(){
+    this._standardPartCategoryService.getAllSPCategory().subscribe((response) => {
+      this.sp_category = response;
     },
     error => {
       this._toastrService.show(
-        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to login!</span> <span data-notify="message">Please check your credentials! Please contact the support, if needed!</span></div>',
+        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to retrieve category!</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
         "",
         {
           timeOut: 1000,
