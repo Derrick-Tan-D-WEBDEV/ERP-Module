@@ -63,7 +63,7 @@ export class AdminLoginComponent implements OnInit {
           this._authService.setRole("Admin");
           this._authService.setID(response.id);
           this._toastrService.show(
-            '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Login Success!</span> <span data-notify="message">Welcome back to Showcaseinterior!</span></div>',
+            '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Login Success!</span> <span data-notify="message">Welcome back to Greatech ERP.S!</span></div>',
             "",
             {
               timeOut: 1000,
@@ -75,7 +75,7 @@ export class AdminLoginComponent implements OnInit {
               toastClass:
                 "ngx-toastr alert alert-dismissible alert-success alert-notify"
             }
-          ).onHidden.pipe(take(1)).subscribe(()=>this.router.navigate(['user/dashboard']));
+          ).onHidden.pipe(take(1)).subscribe(()=>this.router.navigate(['admin/dashboard']));
           
         }else{
           this._toastrService.show(
