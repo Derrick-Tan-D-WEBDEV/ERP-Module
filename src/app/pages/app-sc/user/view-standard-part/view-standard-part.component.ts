@@ -14,8 +14,7 @@ import { StandardPartCategoryService } from 'src/app/services/standard-part-cate
   styleUrls: ['./view-standard-part.component.scss']
 })
 export class ViewStandardPartComponent implements OnInit {
-  @ViewChild(DataTableDirective, {static: false})
-  dtElement: DataTableDirective;
+  @ViewChild(DataTableDirective) dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   
@@ -26,6 +25,7 @@ export class ViewStandardPartComponent implements OnInit {
   constructor(private _chRef: ChangeDetectorRef,private _standardPartCategoryService:StandardPartCategoryService,private _standardPartService:StandardPartsService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
+    this.tableDataReady = 1
     this.getAllSP();
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -35,7 +35,6 @@ export class ViewStandardPartComponent implements OnInit {
   }
 
   categoryOnChange(val){
-    this.rerender();
     if(val){
       this.getSPByCatID(val);
     }
@@ -50,11 +49,10 @@ export class ViewStandardPartComponent implements OnInit {
   }
 
   getAllSP(){
+
     this._standardPartService.getAllSP().subscribe((response) => {
       this.standard_parts = response;
-      this.tableDataReady = 1;
-      console.log(response);
-      
+      this.rerender();
     },
     error => {
       this._toastrService.show(
@@ -97,12 +95,10 @@ export class ViewStandardPartComponent implements OnInit {
   }
 
   getSPByCatID(cat_id){
+
     this._standardPartService.getSPByCatID(cat_id).subscribe((response) => {
       this.standard_parts = response.result;
-      this.tableDataReady = 0;
-      this.tableDataReady = 1;
       this.rerender();
-      console.log(response);
     },
     error => {
       this._toastrService.show(

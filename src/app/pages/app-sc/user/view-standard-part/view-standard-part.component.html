@@ -53,17 +53,16 @@
                 <hr>
               </div>
               <div class="col-12 text-center">
+                
                 <table #myTable datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" *ngIf="tableDataReady == 1"  class="display nowrap" cellspacing="0" width="100%">
                   <thead>
                     <tr>
                       <th>ID</th>
                       <th>ERP Code</th>
-                      <th>Category Type</th>
-                      <th>Category</th>
-                      <th>Update By</th>
+
                       <th>Type Item</th>
                       <th>Product Part Number</th>
-                      <th>Greatech Drawing Number</th>
+                      <th>Greatech Drawing Naming</th>
                       <th>Description</th>
                       <th>Brand</th>
                       <th>UOM</th>
@@ -73,15 +72,16 @@
                       <th>Remark</th>
                       <th>Assign Material</th>
                       <th>Assign Weight</th>
+                      <th>Category Type</th>
+                      <th>Category</th>
+                      <th>Update By</th>
                     </tr>
                   </thead>
                   <tbody class="table-sb" >
                     <tr *ngFor="let sp of standard_parts">
                       <td>{{sp.id}}</td>
                       <td>{{sp.erp_code}}</td>
-                      <td>{{sp.category_type}}</td>
-                      <td>{{sp.category_desc}}</td>
-                      <td>{{sp.fullname}}</td>                      
+                     
                       <td>{{sp.type_item}}</td>
                       <td>{{sp.product_part_number}}</td>
                       <td>{{sp.greatech_drawing_naming}}</td>
@@ -93,10 +93,16 @@
                       <td>{{sp.update_date}}</td>
                       <td>{{sp.remark}}</td>
                       <td>{{sp.assign_material}}</td>
-                      <td>{{sp.assign_weight}}</td>                
+                      <td>{{sp.assign_weight}}</td>     
+                      <td>{{sp.category_type}}</td>
+                      <td>{{sp.category_desc}}</td>
+                      <td>{{sp.fullname}}</td>            
                     </tr>
                   </tbody>
                 </table>
+                <div *ngIf="tableDataReady == 0">
+                  Loading
+                </div>
               </div>
             </div>
           </div>
