@@ -12,23 +12,33 @@ export const UserLayoutRoutes: Routes = [
     children: [
       {
         path: "dashboard",
-        component: DashboardComponent       
+        component: DashboardComponent,
+        canActivate:[AuthGuard],
+        data: {expectedRole:'User'}
       },
       {
         path: "view-standard-part",
-        component: ViewStandardPartComponent       
+        component: ViewStandardPartComponent,
+        canActivate:[AuthGuard],
+        data: {expectedRole:'User'}
       },
       {
         path: "add-standard-part",
-        component: AddStandardPartComponent
+        component: AddStandardPartComponent,
+        canActivate:[AuthGuard],
+        data: {expectedRole:'User'}
       },
       {
         path: "view-own-standard-part",
-        component: ViewOwnStandardPartComponent
+        component: ViewOwnStandardPartComponent,
+        canActivate:[AuthGuard],
+        data: {expectedRole:'User'}
       },
       {
         path: "add-standard-part-ms",
-        component: AddStandardPartMsComponent
+        component: AddStandardPartMsComponent,
+        canActivate:[AuthGuard],
+        data: {expectedRole:'User'}
       },
     ]
   }

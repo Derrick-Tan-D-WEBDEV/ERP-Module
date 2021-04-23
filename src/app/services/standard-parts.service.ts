@@ -29,7 +29,7 @@ export class StandardPartsService {
       'Something bad happened; please try again later.');
   };
 
-  base_path = 'http://192.168.31.137:4000/SP/';
+  base_path = 'http://192.168.31.42:4000/SP/';
 
   getAllSP():Observable<any>{
     return this.httpClient.get<any>(this.base_path+'getAllSP').pipe(
@@ -47,8 +47,8 @@ export class StandardPartsService {
       catchError(this.handleError));
   }
 
-  getSPByCatID(cat_id):Observable<any>{
-    return this.httpClient.post<any>(this.base_path+'getByCatIdSP',{cat_id}).pipe(
+  getSPByCatID(part_id):Observable<any>{
+    return this.httpClient.post<any>(this.base_path+'getByIdSPCategory',{part_id}).pipe(
       map((res) => {
         return res;
     }),

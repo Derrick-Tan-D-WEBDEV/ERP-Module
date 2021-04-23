@@ -54,23 +54,10 @@ export const ROUTES_USER: RouteInfo[] = [
 
 export const ROUTES_ADMIN: RouteInfo[] = [
   {
-    path: "/user/dashboard",
+    path: "/admin/dashboard",
     title: "Dashboard",
     type: "link",
     icontype: "fas fa-th-large text-primary",
-  },
-  {
-    path: "/user",
-    title: "Visualization",
-    type: "sub",
-    icontype: "fas fa-chart-bar text-primary",
-    collapse: "charts",
-    isCollapsed: true,
-    children: [
-      { path: "list-data", title: "Data", type: "link" },
-      { path: "list-charts", title: "Charts", type: "link" },  
-      { path: "list-dashboards", title: "Dashboard", type: "link" }
-    ]
   }
 ];
 
