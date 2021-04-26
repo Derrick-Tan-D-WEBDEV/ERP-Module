@@ -8,7 +8,7 @@ import { Router, Event, NavigationStart, NavigationEnd, NavigationError } from '
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
-  title = 'Greatech Visual';
+  title = 'Greatech ERP.S';
   
   constructor(private titleService: Title, private metaService: Meta,private router: Router) {
 

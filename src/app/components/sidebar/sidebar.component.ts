@@ -49,6 +49,12 @@ export const ROUTES_USER: RouteInfo[] = [
     title: "View Own Standard Part",
     type: "link",
     icontype: "far fa-eye text-primary",
+  },
+  {
+    path: "/user/profile",
+    title: "Profile",
+    type: "link",
+    icontype: "far fa-user text-primary",
   }
 ];
 

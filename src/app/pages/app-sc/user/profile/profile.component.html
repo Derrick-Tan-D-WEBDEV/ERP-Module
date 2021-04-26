@@ -40,10 +40,10 @@
                   </h3>
 
                   <h1 class="h1 card-text mb-4 text-center">
-                    {{view_pUsername}}                  
+                    {{view_pFullname}}     
                     <h4>
                       <span class="badge badge-pill badge-primary"
-                      >{{view_pDesignation}}</span>
+                      >{{view_pUsername}} </span>
                     </h4>
                   </h1>
  
@@ -56,9 +56,9 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
                       <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
-                        <i class="fas fa-phone"></i>
+                        <i class="fas fa-tag"></i>
                       </div>
-                      &nbsp;<span class="h5 ">{{view_pDepartment}}</span>
+                      &nbsp;<span class="h5 ">{{view_pEmployeeID}}</span>
                     </div>
                   </div>
                 </div>
@@ -74,7 +74,6 @@
               </h3>
               <form class="text-left" [formGroup]="updatePasswordForm" (ngSubmit)="updatePassword(updatePasswordForm.value)" autocomplete="off">
                 <div class="row">
-                    <input style="display:none" formControlName="id" type="text" placeholder="ID">
                     <div class="col-sm-12">
                         <div class="form-group">
                             <div class="col-md-12" [ngClass]="{ 'has-error': isSubmitted && f_pwd.old_password.errors }">

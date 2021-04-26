@@ -46,4 +46,11 @@ export class EmployeeService {
     catchError(this.handleError));    
   }
 
+  getUserbyID(user_id):Observable<any>{
+    return this.httpClient.post<any>(this.base_path+'getUserbyID',{user_id}).pipe(
+      map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));    
+  }
 }
