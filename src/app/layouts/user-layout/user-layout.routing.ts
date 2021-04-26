@@ -5,6 +5,7 @@ import { ViewStandardPartComponent } from 'src/app/pages/app-sc/user/view-standa
 import { AddStandardPartComponent } from 'src/app/pages/app-sc/user/add-standard-part/add-standard-part.component';
 import { ViewOwnStandardPartComponent } from 'src/app/pages/app-sc/user/view-own-standard-part/view-own-standard-part.component';
 import { AddStandardPartMsComponent } from 'src/app/pages/app-sc/user/add-standard-part-ms/add-standard-part-ms.component';
+import { ProfileComponent } from 'src/app/pages/app-sc/user/profile/profile.component';
 
 export const UserLayoutRoutes: Routes = [
   {
@@ -40,6 +41,12 @@ export const UserLayoutRoutes: Routes = [
         canActivate:[AuthGuard],
         data: {expectedRole:'User'}
       },
+      {
+        path: "profile",
+        component: ProfileComponent,
+        canActivate:[AuthGuard],
+        data: {expectedRole:'User'}
+      }
     ]
   }
 ];
