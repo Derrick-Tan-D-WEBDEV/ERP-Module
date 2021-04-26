@@ -1,1 +1,118 @@
-<p>profile works!</p>
+<div class=" header bg-dark pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-6 col-7">
+            <h6 class=" h2 text-white d-inline-block mb-0">Profile</h6>
+  
+            <nav
+              aria-label="breadcrumb"
+              class=" d-none d-md-inline-block ml-md-4"
+            >
+              <ol class=" breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class=" breadcrumb-item">
+                  <a href="javascript:void(0)"> <i class=" fas fa-home"> </i> </a>
+                </li>
+  
+                <li class=" breadcrumb-item">
+                  <a href="javascript:void(0)"> Profile </a>
+                </li>
+  
+              </ol>
+            </nav>
+          </div>
+  
+        </div>
+  
+
+      </div>
+    </div>
+  </div>
+  
+  <div class=" container-fluid mt--6">
+    <div class="row">
+        <div class=" mt-4 col-12">
+            <div class=" card">
+        
+                <div class=" card-body ">
+                  <h3 class=" card-title mb-3 text-center">
+                    <img src="assets/app-sc/img/employee.png" class="rounded-circle img-fluid" width="150">
+                  </h3>
+
+                  <h1 class="h1 card-text mb-4 text-center">
+                    {{view_pUsername}}                  
+                    <h4>
+                      <span class="badge badge-pill badge-primary"
+                      >{{view_pDesignation}}</span>
+                    </h4>
+                  </h1>
+ 
+                  <div class="row text-center">
+                    <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+                      <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                        <i class="fas fa-envelope-open-text"></i>
+                      </div>
+                      &nbsp;<span class="h5 ">{{view_pEmail}}</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+                      <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                        <i class="fas fa-phone"></i>
+                      </div>
+                      &nbsp;<span class="h5 ">{{view_pDepartment}}</span>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-6">
+          <div class=" card">
+        
+            <div class=" card-body ">
+              <h3 class=" card-title mb-3 text-center">
+                Change Password
+              </h3>
+              <form class="text-left" [formGroup]="updatePasswordForm" (ngSubmit)="updatePassword(updatePasswordForm.value)" autocomplete="off">
+                <div class="row">
+                    <input style="display:none" formControlName="id" type="text" placeholder="ID">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="col-md-12" [ngClass]="{ 'has-error': isSubmitted && f_pwd.old_password.errors }">
+                                <label>Old Password</label>
+                                <input class="form-control" formControlName="old_password" type="password" name="old_password" placeholder="Old Password" >
+                            </div>
+                            <div *ngIf="isSubmitted && f_pwd.old_password.errors" class="help-block">
+                                <div *ngIf="f_pwd.old_password.errors.required">Old Password is required!</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <div class="col-md-12" [ngClass]="{ 'has-error': isSubmitted && f_pwd.new_password.errors }">
+                                <label>New Password</label>
+                                <input class="form-control " formControlName="new_password" type="password" name="new_password" placeholder="New Password" >
+                            </div>
+                            <div *ngIf="isSubmitted && f_pwd.new_password.errors" class="help-block">
+                                <div *ngIf="f_pwd.new_password.errors.required">New Password is required!</div>
+                            </div>
+                        </div>                                                        
+                    </div>
+
+                </div>
+
+                <small>{{updatePrompt}}</small>
+                <div class="form-group">
+                    <div class="text-left col-md-12">
+                        <button type="submit" class="btn btn-default px-4 py-2 text-uppercase white font-small-3 box-shadow-2 border-0">Update</button>
+                    </div>
+                </div>
+              </form>
+  
+
+            </div>
+          </div>
+        </div>
+
+    </div>
+  </div>
+  

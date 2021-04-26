@@ -28,7 +28,7 @@ export class StandardPartCategoryService {
       'Something bad happened; please try again later.');
   };
 
-  base_path = 'http://192.168.31.42:4000/SPCategory/';
+  base_path = 'http://192.168.31.56:4000/SPCategory/';
 
   getAllSPCategory():Observable<any>{
     return this.httpClient.get<any>(this.base_path+'getAllSPCategory').pipe(

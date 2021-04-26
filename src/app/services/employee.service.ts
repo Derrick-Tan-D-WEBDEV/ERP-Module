@@ -28,7 +28,7 @@ export class EmployeeService {
       'Something bad happened; please try again later.');
   };
 
-  base_path = 'http://192.168.31.42:4000/users/';
+  base_path = 'http://192.168.31.56:4000/users/';
 
   login(employeeID,password):Observable<any>{
       return this.httpClient.post<any>(this.base_path+'loginUser',{employeeID ,password}).pipe(
@@ -37,4 +37,13 @@ export class EmployeeService {
       }),
       catchError(this.handleError));
   }
+  
+  updatePassword(user_id,newPassword,oldPassword):Observable<any>{
+    return this.httpClient.post<any>(this.base_path+'changePassword',{user_id, newPassword ,oldPassword}).pipe(
+      map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));    
+  }
+
 }
