@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { StandardPartsService } from 'src/app/services/standard-parts.service';
 import { DataTableDirective } from 'angular-datatables';
 import { StandardPartCategoryService } from 'src/app/services/standard-part-category.service';
+import { StandardPartTypeItemService } from 'src/app/services/standard-part-type-item.service';
 
 @Component({
   selector: 'app-add-standard-part-ms',
@@ -16,9 +17,12 @@ import { StandardPartCategoryService } from 'src/app/services/standard-part-cate
 })
 export class AddStandardPartMsComponent implements OnInit {
   sp_category:any;
+  sp_typeitem:any;
   addForm: FormGroup;
   isSubmitted:boolean;
-  constructor(private _standardPartService:StandardPartsService,private _chRef: ChangeDetectorRef,private _standardPartCategoryService:StandardPartCategoryService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
+  
+  sp_typeitem_index:any;
+  constructor(private _standardPartService:StandardPartsService,private _stadardPartTypeItemService:StandardPartTypeItemService,private _chRef: ChangeDetectorRef,private _standardPartCategoryService:StandardPartCategoryService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
     this.getAllSPCategory();
@@ -40,6 +44,16 @@ export class AddStandardPartMsComponent implements OnInit {
     this.addSub();
   }
   
+  typeItemOnChange(val){
+    if(val){
+      this.getAllTypeItem(val);
+    }
+    else{
+      this.sp_category.removeAt();
+    }
+
+  }
+
   get f_sub() :FormArray {
     return this.addForm.get("subs") as FormArray
   }
@@ -138,6 +152,29 @@ export class AddStandardPartMsComponent implements OnInit {
   getAllSPCategory(){
     this._standardPartCategoryService.getAllSPCategory().subscribe((response) => {
       this.sp_category = response;
+    },
+    error => {
+      this._toastrService.show(
+        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to retrieve category!</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
+        "",
+        {
+          timeOut: 1000,
+          closeButton: true,
+          enableHtml: true,
+          tapToDismiss: false,
+          titleClass: "alert-title",
+          positionClass: "toast-bottom-center",
+          toastClass:
+            "ngx-toastr alert alert-dismissible alert-danger alert-notify"
+        }
+      );
+    });
+  }
+
+  getAllTypeItem(sp_id){
+    this._stadardPartTypeItemService.getAllSPByCategoryId(sp_id).subscribe((response) => {
+      this.sp_typeitem = response.result;
+      console.log(this.sp_typeitem);
     },
     error => {
       this._toastrService.show(

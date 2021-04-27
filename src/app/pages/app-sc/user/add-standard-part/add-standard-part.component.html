@@ -52,6 +52,7 @@
                         class="form-control"
                         placeholder="Category"
                         formControlName="sp_category"
+                        (change)="typeItemOnChange($event.target.value)"
                     >
                         <option value="" selected>--Select a category--</option>
                         <option *ngFor="let spc of sp_category;let i = index" value="{{spc.id}}" >{{spc.type}} - {{spc.description}}</option>
@@ -70,12 +71,14 @@
                             <i class="fas fa-font"></i>
                         </span>
                     </div>
-                    <input
-                      class="form-control"
-                      placeholder="Type Item"
-                      formControlName="type_item"
-                      type="text"
-                    />
+                    <select
+                        class="form-control"
+                        placeholder="Type Item"
+                        formControlName="type_item"
+                    >
+                        <option value="" selected>--Select a type item--</option>
+                        <option *ngFor="let spc of sp_typeitem;let i = index" value="{{spc.type_item}}" >{{spc.type_item}}</option>
+                    </select>
                   </div>
                   <div *ngIf="isSubmitted && f.type_item.errors" class="help-block">
                     <div *ngIf="f.type_item.errors.required">Type Item is required!</div>

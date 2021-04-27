@@ -25,7 +25,6 @@ export class ViewStandardPartComponent implements OnInit {
   constructor(private _chRef: ChangeDetectorRef,private _standardPartCategoryService:StandardPartCategoryService,private _standardPartService:StandardPartsService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
-    this.tableDataReady = 1
     this.getAllSP();
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -49,10 +48,11 @@ export class ViewStandardPartComponent implements OnInit {
   }
 
   getAllSP(){
-
+    this.tableDataReady = 0;
     this._standardPartService.getAllSP().subscribe((response) => {
-      this.standard_parts = response;
+      this.standard_parts = response.result;
       this.rerender();
+      this.tableDataReady = 1;
     },
     error => {
       this._toastrService.show(
@@ -95,10 +95,11 @@ export class ViewStandardPartComponent implements OnInit {
   }
 
   getSPByCatID(cat_id){
-
+    this.tableDataReady = 0;
     this._standardPartService.getSPByCatID(cat_id).subscribe((response) => {
       this.standard_parts = response.result;
       this.rerender();
+      this.tableDataReady = 1;
     },
     error => {
       this._toastrService.show(
