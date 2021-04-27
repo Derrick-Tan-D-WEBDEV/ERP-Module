@@ -21,7 +21,8 @@ export class AddStandardPartMsComponent implements OnInit {
   addForm: FormGroup;
   isSubmitted:boolean;
   
-  sp_typeitem_index:any;
+  sp_typeitem_index:any =[];
+  temp_typeitem:any = {};
   constructor(private _standardPartService:StandardPartsService,private _stadardPartTypeItemService:StandardPartTypeItemService,private _chRef: ChangeDetectorRef,private _standardPartCategoryService:StandardPartCategoryService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
@@ -53,6 +54,14 @@ export class AddStandardPartMsComponent implements OnInit {
     }
 
   }
+  
+  typeItemOnChangeIndex(i,val){
+    if(val){
+      this.getAllTypeItem(val);
+      this.sp_typeitem_index[i] = this.temp_typeitem;
+      this.temp_typeitem = {};
+    }
+  }
 
   get f_sub() :FormArray {
     return this.addForm.get("subs") as FormArray
@@ -64,6 +73,7 @@ export class AddStandardPartMsComponent implements OnInit {
 
   newSub(): FormGroup {
     return this.formBuilder.group({
+      sp_category: ['', Validators.required],
       type_item: ['', Validators.required],
       product_part_number: ['', Validators.required], 
       greatech_drawing_naming: ['', Validators.required],
@@ -77,7 +87,9 @@ export class AddStandardPartMsComponent implements OnInit {
   }
 
   addSub() {
+    this.sp_typeitem_index.push({});
     this.f_sub.push(this.newSub());
+    console.log(this.sp_typeitem_index);
   }
   
   removeSub(i:number) {
@@ -171,10 +183,12 @@ export class AddStandardPartMsComponent implements OnInit {
     });
   }
 
-  getAllTypeItem(sp_id){
+  getAllTypeItem(sp_id, type = null){
     this._stadardPartTypeItemService.getAllSPByCategoryId(sp_id).subscribe((response) => {
-      this.sp_typeitem = response.result;
-      console.log(this.sp_typeitem);
+      if(type == null)
+        this.sp_typeitem = response.result;
+      else
+        this.sp_typeitem_index = response.result;
     },
     error => {
       this._toastrService.show(
