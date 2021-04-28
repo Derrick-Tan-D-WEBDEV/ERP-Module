@@ -279,7 +279,15 @@
                       <ng-container *ngFor="let sub of f_sub.controls; let i=index">
                         <tr [formGroupName]="i">
                           <td>Sub #{{i}} | </td>
-  
+                          <td>
+                            <select
+                            placeholder="Category"
+                            formControlName="sp_category"
+                            >
+                                <option value="" selected>--Select a category--</option>
+                                <option *ngFor="let spc of sp_category;let i = index" value="{{spc.id}}" >{{spc.type}} - {{spc.description}}</option>
+                            </select>
+                          </td>
                           <td><input type="text" formControlName="type_item" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.type_item.errors }"></td>
                           <td><input type="text" formControlName="product_part_number" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.product_part_number.errors }"></td>
                           <td><input type="text" formControlName="greatech_drawing_naming" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.greatech_drawing_naming.errors }"></td>

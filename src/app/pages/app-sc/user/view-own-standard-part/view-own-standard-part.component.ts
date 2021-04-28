@@ -22,6 +22,7 @@ export class ViewOwnStandardPartComponent implements OnInit {
   constructor(private _chRef: ChangeDetectorRef,private _standardPartService:StandardPartsService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
+    this.tableDataReady = 1;
     this.id = this._authService.getUserID();
     this.getAllSPByUserID();
     this.dtOptions = {
@@ -33,7 +34,7 @@ export class ViewOwnStandardPartComponent implements OnInit {
   getAllSPByUserID(){
     this._standardPartService.getSPByUserID(this.id).subscribe((response) => {
       this.standard_parts = response;
-      this.tableDataReady = 1;
+      
     },
     error => {
       this._toastrService.show(
