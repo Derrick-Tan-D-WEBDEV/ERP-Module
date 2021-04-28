@@ -57,7 +57,7 @@ export class AddStandardPartMsComponent implements OnInit {
   
   typeItemOnChangeIndex(i,val){
     if(val){
-      this.getAllTypeItem(val);
+      this.getAllTypeItem(val,"");
       this.sp_typeitem_index[i] = this.temp_typeitem;
       this.temp_typeitem = {};
     }
@@ -188,7 +188,8 @@ export class AddStandardPartMsComponent implements OnInit {
       if(type == null)
         this.sp_typeitem = response.result;
       else
-        this.sp_typeitem_index = response.result;
+        this.temp_typeitem = response.result;
+      console.log(this.temp_typeitem)
     },
     error => {
       this._toastrService.show(

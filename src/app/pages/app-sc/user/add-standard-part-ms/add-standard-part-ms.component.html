@@ -53,6 +53,7 @@
                         class="form-control"
                         placeholder="Category"
                         formControlName="sp_category"
+                        (change)="typeItemOnChange($event.target.value)"
                     >
                         <option value="" selected>--Select a category--</option>
                         <option *ngFor="let spc of sp_category;let i = index" value="{{spc.id}}" >{{spc.type}} - {{spc.description}}</option>
@@ -263,6 +264,7 @@
                     <thead>
                       <tr>
                         <th>#</th>
+                        <th>Category</th>
                         <th>Type Item</th>
                         <th>Product Part Number</th>
                         <th>Greatech Drawing Naming</th>
@@ -283,6 +285,7 @@
                             <select
                             placeholder="Category"
                             formControlName="sp_category"
+                            (change)="typeItemOnChangeIndex(i,$event.target.value)"
                             >
                                 <option value="" selected>--Select a category--</option>
                                 <option *ngFor="let spc of sp_category;let i = index" value="{{spc.id}}" >{{spc.type}} - {{spc.description}}</option>
