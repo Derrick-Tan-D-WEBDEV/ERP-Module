@@ -72,12 +72,14 @@
                             <i class="fas fa-font"></i>
                         </span>
                     </div>
-                    <input
-                      class="form-control"
-                      placeholder="Type Item"
-                      formControlName="type_item"
-                      type="text"
-                    />
+                    <select
+                        class="form-control"
+                        placeholder="Type Item"
+                        formControlName="type_item"
+                    >
+                        <option value="" selected>--Select a type item--</option>
+                        <option *ngFor="let spc of sp_typeitem;let i = index" value="{{spc.type_item}}" >{{spc.type_item}}</option>
+                    </select>
                   </div>
                   <div *ngIf="isSubmitted && f.type_item.errors" class="help-block">
                     <div *ngIf="f.type_item.errors.required">Type Item is required!</div>
@@ -205,12 +207,15 @@
                             <i class="fas fa-gem"></i>
                         </span>
                     </div>
-                    <input
+                    <select
                       class="form-control"
                       placeholder="Assign Material"
                       formControlName="assign_material"
-                      type="text"
-                    />
+                    >
+                      <option value="" selected>--Select a assign material--</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
                   </div>
                   <div *ngIf="isSubmitted && f.assign_material.errors" class="help-block">
                     <div *ngIf="f.assign_material.errors.required">Assign Material is required!</div>
@@ -224,13 +229,17 @@
                             <i class="fas fa-weight-hanging"></i>
                         </span>
                     </div>
-                    <input
+                    <select
                       class="form-control"
                       placeholder="Assign Weight"
                       formControlName="assign_weight"
-                      type="text"
-                    />
+                    >
+                      <option value="" selected>--Select a assign weight--</option>
+                      <option value="By Material Default">By Material Default</option>
+                      <option value="Overwrite by user">Overwrite by User</option>
+                    </select>
                   </div>
+                  
                   <div *ngIf="isSubmitted && f.assign_weight.errors" class="help-block">
                     <div *ngIf="f.assign_weight.errors.required">Assign Weight is required!</div>
                   </div>
@@ -286,9 +295,16 @@
                             placeholder="Category"
                             formControlName="sp_category"
                             (change)="typeItemOnChangeIndex(i,$event.target.value)"
+                            [ngClass]="{ 'sub-error': isSubmitted && sub.controls.sp_category.errors }"
                             >
-                                <option value="" selected>--Select a category--</option>
-                                <option *ngFor="let spc of sp_category;let i = index" value="{{spc.id}}" >{{spc.type}} - {{spc.description}}</option>
+                              <option value="" selected>--Select a category--</option>
+                              <option *ngFor="let spc of sp_category;let i = index" value="{{spc.id}}" >{{spc.type}} - {{spc.description}}</option>
+                            </select>
+                          </td>
+                          <td>
+                            <select type="text" formControlName="type_item" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.type_item.errors }">
+                              <option value="" selected>--Select a type item--</option>
+                              <option *ngFor="let spc of sp_typeitem_index[i]" value="{{spc.type_item}}" >{{spc.type_item}}</option>
                             </select>
                           </td>
                           <td><input type="text" formControlName="type_item" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.type_item.errors }"></td>
@@ -298,8 +314,28 @@
                           <td><input type="text" formControlName="brand" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.brand.errors }"></td>
                           <td><input type="text" formControlName="uom" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.uom.errors }"></td>
                           <td><input type="text" formControlName="remark" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.remark.errors }"></td>
-                          <td><input type="text" formControlName="assign_material" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.assign_material.errors }"></td>
-                          <td><input type="text" formControlName="assign_weight" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.assign_weight.errors }"></td>
+                          <td>
+                            <select
+                              [ngClass]="{ 'sub-error': isSubmitted && sub.controls.assign_material.errors }"
+                              placeholder="Assign Material"
+                              formControlName="assign_material"
+                            >
+                              <option value="" selected>--Select a assign material--</option>
+                              <option value="Yes">Yes</option>
+                              <option value="No">No</option>
+                            </select>
+                          </td>
+                          <td>
+                            <select
+                              placeholder="Assign Weight"
+                              formControlName="assign_weight"
+                              [ngClass]="{ 'sub-error': isSubmitted && sub.controls.assign_weight.errors }"
+                            >
+                              <option value="" selected>--Select a assign weight--</option>
+                              <option value="By Material Default">By Material Default</option>
+                              <option value="Overwrite by user">Overwrite by User</option>
+                            </select>
+                          </td>
                           <td><button class="btn btn-warning btn-sm" (click)="removeSub(i)"><i class="fas fa-dumpster"></i></button></td>
                           
                         </tr>

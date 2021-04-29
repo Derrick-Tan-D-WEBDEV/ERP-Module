@@ -206,12 +206,15 @@
                             <i class="fas fa-gem"></i>
                         </span>
                     </div>
-                    <input
+                    <select
                       class="form-control"
                       placeholder="Assign Material"
                       formControlName="assign_material"
-                      type="text"
-                    />
+                    >
+                      <option value="" selected>--Select a assign material--</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
                   </div>
                   <div *ngIf="isSubmitted && f.assign_material.errors" class="help-block">
                     <div *ngIf="f.assign_material.errors.required">Assign Material is required!</div>
@@ -225,12 +228,15 @@
                             <i class="fas fa-weight-hanging"></i>
                         </span>
                     </div>
-                    <input
+                    <select
                       class="form-control"
                       placeholder="Assign Weight"
                       formControlName="assign_weight"
-                      type="text"
-                    />
+                    >
+                      <option value="" selected>--Select a assign weight--</option>
+                      <option value="By Material Default">By Material Default</option>
+                      <option value="Overwrite by user">Overwrite by User</option>
+                    </select>
                   </div>
                   <div *ngIf="isSubmitted && f.assign_weight.errors" class="help-block">
                     <div *ngIf="f.assign_weight.errors.required">Assign Weight is required!</div>

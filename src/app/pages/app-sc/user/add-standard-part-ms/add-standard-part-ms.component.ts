@@ -36,7 +36,7 @@ export class AddStandardPartMsComponent implements OnInit {
       description: ['', Validators.required],
       brand: ['', Validators.required],
       uom: ['', Validators.required],
-      remark: ['', Validators.required],
+      remark: [''],
       assign_material: ['', Validators.required],
       assign_weight: ['', Validators.required],
       folder_location: ['', Validators.required],
@@ -80,7 +80,7 @@ export class AddStandardPartMsComponent implements OnInit {
       description: ['', Validators.required],
       brand: ['', Validators.required],
       uom: ['', Validators.required],
-      remark: ['', Validators.required],
+      remark: [''],
       assign_material: ['', Validators.required],
       assign_weight: ['', Validators.required]
     })
