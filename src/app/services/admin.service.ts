@@ -29,7 +29,7 @@ export class AdminService {
       'Something bad happened; please try again later.');
   };
 
-  base_path = 'http://192.168.31.56:4000/admin/';
+  base_path = 'http://192.168.31.39:4000/admin/';
 
   login(username,password):Observable<any>{
       return this.httpClient.post<any>(this.base_path+'loginAdmin',{username ,password}).pipe(

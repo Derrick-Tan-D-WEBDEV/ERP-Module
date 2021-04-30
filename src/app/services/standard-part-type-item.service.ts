@@ -28,7 +28,7 @@ export class StandardPartTypeItemService {
       'Something bad happened; please try again later.');
   };
 
-  base_path = 'http://192.168.31.56:4000/SPTypeItems/';
+  base_path = 'http://192.168.31.39:4000/SPTypeItems/';
 
   getAllSPByCategoryId(category_id):Observable<any>{
     return this.httpClient.post<any>(this.base_path+'getAllByCategoryId',{category_id}).pipe(
