@@ -169,12 +169,15 @@
                             <i class="fas fa-tag"></i>
                         </span>
                     </div>
-                    <input
+                    <select
                       class="form-control"
                       placeholder="Uom"
                       formControlName="uom"
                       type="text"
-                    />
+                    >
+                      <option value="" selected>--Select a UOM--</option>
+                      <option></option>
+                    </select>
                   </div>
                   <div *ngIf="isSubmitted && f.uom.errors" class="help-block">
                     <div *ngIf="f.uom.errors.required">Uom is required!</div>
