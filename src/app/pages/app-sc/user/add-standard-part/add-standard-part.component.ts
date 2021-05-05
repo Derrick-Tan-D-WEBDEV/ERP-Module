@@ -18,12 +18,14 @@ import { StandardPartTypeItemService } from 'src/app/services/standard-part-type
 export class AddStandardPartComponent implements OnInit {
   sp_category:any;
   sp_typeitem:any;
+  sp_uom:any;
   addForm: FormGroup;
   isSubmitted:boolean;
   constructor(private _standardPartService:StandardPartsService,private _stadardPartTypeItemService:StandardPartTypeItemService,private _chRef: ChangeDetectorRef,private _standardPartCategoryService:StandardPartCategoryService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
     this.getAllSPCategory();
+    this.getAllSPUOM();
     this.addForm =  this.formBuilder.group({
       sp_category: ['', Validators.required],
       type_item: ['', Validators.required],
@@ -139,6 +141,30 @@ export class AddStandardPartComponent implements OnInit {
       );
     });
   }
+
+  getAllSPUOM(){
+    this._standardPartService.getAllUOM().subscribe((response) => {
+      this.sp_uom = response.result;
+      console.log(this.sp_uom);
+    },
+    error => {
+      this._toastrService.show(
+        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to retrieve uom!</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
+        "",
+        {
+          timeOut: 1000,
+          closeButton: true,
+          enableHtml: true,
+          tapToDismiss: false,
+          titleClass: "alert-title",
+          positionClass: "toast-bottom-center",
+          toastClass:
+            "ngx-toastr alert alert-dismissible alert-danger alert-notify"
+        }
+      );
+    });
+  }
+
 
   getAllTypeItem(sp_id){
     this._stadardPartTypeItemService.getAllSPByCategoryId(sp_id).subscribe((response) => {

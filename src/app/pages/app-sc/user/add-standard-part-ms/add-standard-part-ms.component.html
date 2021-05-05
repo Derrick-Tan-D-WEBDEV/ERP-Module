@@ -175,8 +175,8 @@
                       formControlName="uom"
                       type="text"
                     >
-                      <option value="" selected>--Select a UOM--</option>
-                      <option></option>
+                      <option value="" selected>--Select a uom--</option>
+                      <option *ngFor="let spc of sp_uom;let i = index" value="{{spc.uom_types}}" >{{spc.uom_types}}</option>
                     </select>
                   </div>
                   <div *ngIf="isSubmitted && f.uom.errors" class="help-block">
@@ -310,12 +310,21 @@
                               <option *ngFor="let spc of sp_typeitem_index[i]" value="{{spc.type_item}}" >{{spc.type_item}}</option>
                             </select>
                           </td>
-                          <td><input type="text" formControlName="type_item" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.type_item.errors }"></td>
                           <td><input type="text" formControlName="product_part_number" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.product_part_number.errors }"></td>
                           <td><input type="text" formControlName="greatech_drawing_naming" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.greatech_drawing_naming.errors }"></td>
                           <td><input type="text" formControlName="description" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.description.errors }"></td>
                           <td><input type="text" formControlName="brand" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.brand.errors }"></td>
-                          <td><input type="text" formControlName="uom" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.uom.errors }"></td>
+                          <td>
+                            <select
+                              placeholder="Uom"
+                              formControlName="uom"
+                              type="text"
+                              [ngClass]="{ 'sub-error': isSubmitted && sub.controls.uom.errors }"
+                            >
+                              <option value="" selected>--Select a uom--</option>
+                              <option *ngFor="let spc of sp_uom;let i = index" value="{{spc.uom_types}}" >{{spc.uom_types}}</option>
+                            </select>
+                          </td>
                           <td><input type="text" formControlName="remark" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.remark.errors }"></td>
                           <td>
                             <select

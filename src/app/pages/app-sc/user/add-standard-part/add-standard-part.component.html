@@ -76,7 +76,7 @@
                         placeholder="Type Item"
                         formControlName="type_item"
                     >
-                        <option value="" selected>--Select a type item--</option>
+                        
                         <option *ngFor="let spc of sp_typeitem;let i = index" value="{{spc.type_item}}" >{{spc.type_item}}</option>
                     </select>
                   </div>
@@ -85,7 +85,7 @@
                   </div>
                 </div>
                 <label>Product Part Number</label>
-                <div class="form-group">
+                <div class="form-group"><option value="" selected>--Select a type item--</option>
                   <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.product_part_number.errors }">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
@@ -168,12 +168,15 @@
                             <i class="fas fa-tag"></i>
                         </span>
                     </div>
-                    <input
+                    <select
                       class="form-control"
                       placeholder="Uom"
                       formControlName="uom"
                       type="text"
-                    />
+                    >
+                      <option value="" selected>--Select a uom--</option>
+                      <option *ngFor="let spc of sp_uom;let i = index" value="{{spc.uom_types}}" >{{spc.uom_types}}</option>
+                    </select>
                   </div>
                   <div *ngIf="isSubmitted && f.uom.errors" class="help-block">
                     <div *ngIf="f.uom.errors.required">Uom is required!</div>

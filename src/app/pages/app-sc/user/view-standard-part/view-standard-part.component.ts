@@ -25,11 +25,12 @@ export class ViewStandardPartComponent implements OnInit {
   constructor(private _chRef: ChangeDetectorRef,private _standardPartCategoryService:StandardPartCategoryService,private _standardPartService:StandardPartsService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
-    this.getAllSP();
+    
     this.dtOptions = {
       pagingType: 'full_numbers',
       scrollX: true
     };
+    this.getAllSP();
     this.getAllSPCategory();
   }
 
@@ -51,7 +52,7 @@ export class ViewStandardPartComponent implements OnInit {
   getAllSP(){
     this.tableDataReady = 0;
     this._standardPartService.getAllSP().subscribe((response) => {
-      this.standard_parts = response.result;
+      this.standard_parts = response;
       this.rerender();
       this.tableDataReady = 1;
     },
