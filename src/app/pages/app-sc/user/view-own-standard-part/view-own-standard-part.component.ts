@@ -29,6 +29,7 @@ export class ViewOwnStandardPartComponent implements OnInit {
       pagingType: 'full_numbers',
       scrollX: true
     };
+    this.tableDataReady = 1;
   }
 
   getAllSPByUserID(){

@@ -29,10 +29,18 @@ export class StandardPartsService {
       'Something bad happened; please try again later.');
   };
 
-  base_path = 'http://192.168.31.39:4000/SP/';
+  base_path = 'http://192.168.0.24:4000/SP/';
 
   getAllSP():Observable<any>{
     return this.httpClient.get<any>(this.base_path+'getAllSP').pipe(
+      map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
+
+  getAllUOM():Observable<any>{
+    return this.httpClient.get<any>(this.base_path+'getAllUOM').pipe(
       map((res) => {
         return res;
     }),
@@ -62,6 +70,15 @@ export class StandardPartsService {
     }),
     catchError(this.handleError));
   }
+
+  exportAsExcel():Observable<any>{
+    return this.httpClient.get<any>(this.base_path+'SPfiles').pipe(
+      map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
+
 
   addSP(data):Observable<any>{
     var product_part_number = data.product_part_number;
