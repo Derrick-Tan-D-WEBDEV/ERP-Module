@@ -14,7 +14,9 @@ import { DataTableDirective } from 'angular-datatables';
 })
 export class ViewOwnStandardPartComponent implements OnInit {
   standard_parts:any; 
+  @ViewChild(DataTableDirective) dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
 
   tableDataReady:any = 0;
 
@@ -32,10 +34,15 @@ export class ViewOwnStandardPartComponent implements OnInit {
     this.tableDataReady = 1;
   }
 
+  ngAfterViewInit() {
+    this.dtTrigger.next();
+  }
+
   getAllSPByUserID(){
     this._standardPartService.getSPByUserID(this.id).subscribe((response) => {
       this.standard_parts = response;
       this.tableDataReady = 1;
+      this.rerender();
     },
     error => {
       this.tableDataReady = 1;
@@ -56,4 +63,12 @@ export class ViewOwnStandardPartComponent implements OnInit {
     });
   }
 
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
+  }
 }

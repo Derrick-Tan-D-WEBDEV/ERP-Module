@@ -19,13 +19,14 @@ export class ViewStandardPartComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject();
   
   standard_parts:any; 
-
+  actionRole:any;
   sp_category:any;
   tableDataReady:any = 0;
   constructor(private _chRef: ChangeDetectorRef,private _standardPartCategoryService:StandardPartCategoryService,private _standardPartService:StandardPartsService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
-    
+    this.actionRole = this._authService.getActionRole();
+    console.log(this.actionRole);
     this.dtOptions = {
       pagingType: 'full_numbers',
       scrollX: true

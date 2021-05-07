@@ -39,16 +39,28 @@ export const ROUTES_USER: RouteInfo[] = [
     icontype: "fas fa-th-large text-primary",
   },
   {
-    path: "/user/view-standard-part",
-    title: "View Standard Part",
-    type: "link",
-    icontype: "far fa-eye text-primary",
+    path: "/user",
+    title: "View",
+    type: "sub",
+    icontype: "fas fa-eye text-primary",
+    collapse: "owned-company",
+    isCollapsed: true,
+    children: [
+      { path: "view-standard-part", title: "Standard Part", type: "link" },
+      { path: "view-own-standard-part", title: "Own Standard Part", type: "link" }
+    ]
   },
   {
-    path: "/user/view-own-standard-part",
-    title: "View Own Standard Part",
-    type: "link",
-    icontype: "far fa-eye text-primary",
+    path: "/user",
+    title: "Add",
+    type: "sub",
+    icontype: "fas fa-plus text-primary",
+    collapse: "owned-company",
+    isCollapsed: true,
+    children: [
+      { path: "add-standard-part", title: "Standard Part", type: "link" },
+      { path: "add-standard-part-ms", title: "Customized Standard Part", type: "link" }
+    ]
   },
   {
     path: "/user/profile",

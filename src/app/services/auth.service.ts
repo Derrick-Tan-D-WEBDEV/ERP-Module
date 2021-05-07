@@ -65,17 +65,21 @@ export class AuthService implements CanActivate{
     }
     
     setRole(role){
-        localStorage.setItem('Role',role)
+        localStorage.setItem('Role',role);
     }
 
     setID(id){
-        localStorage.setItem('ID',id)
+        localStorage.setItem('ID',id);
     }
 
     setCredits(credits){
-        localStorage.setItem('Credits',credits)
+        localStorage.setItem('Credits',credits);
     }
 
+    setActionRole(role){
+        localStorage.setItem('ActionRole',role);
+    }
+    
     getRole(){
         return localStorage.getItem('Role');
     }
@@ -90,6 +94,10 @@ export class AuthService implements CanActivate{
 
     getCredits(){
         return localStorage.getItem('Credits');
+    }
+
+    getActionRole(){
+        return localStorage.getItem('ActionRole');
     }
 
     getUserID(){

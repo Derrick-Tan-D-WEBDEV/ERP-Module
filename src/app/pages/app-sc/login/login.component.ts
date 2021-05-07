@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
           this._authService.setAccessToken(response.accessToken);
           this._authService.setUsername(response.name);
           this._authService.setRole("User");
+          this._authService.setActionRole(response.role);
           this._authService.setID(response.id);
           this._toastrService.show(
             '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Login Success!</span> <span data-notify="message">Welcome back to Greatech ERP.S!</span></div>',
