@@ -122,6 +122,40 @@ export class ViewStandardPartComponent implements OnInit {
     });
   }
 
+  editSP(id,erp_code){
+
+  }
+
+
+  deleteSP(id){
+    this._standardPartService.deleteSP(id).subscribe((response) => {
+      console.log(response);
+      var val = (<HTMLInputElement>document.getElementById("category_id")).value;
+      if(val){
+        this.getSPByCatID(val);
+      }
+      else{
+        this.getAllSP();
+      }
+    },
+    error => {
+      this._toastrService.show(
+        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to delete!</span> <span data-notify="message">Please check your credentials! Please contact the support, if needed!</span></div>',
+        "",
+        {
+          timeOut: 1000,
+          closeButton: true,
+          enableHtml: true,
+          tapToDismiss: false,
+          titleClass: "alert-title",
+          positionClass: "toast-bottom-center",
+          toastClass:
+            "ngx-toastr alert alert-dismissible alert-danger alert-notify"
+        }
+      );
+    });
+  }
+
 
   export_excel(){
     var element = document.createElement('a');

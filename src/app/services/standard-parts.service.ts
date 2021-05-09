@@ -55,6 +55,14 @@ export class StandardPartsService {
       catchError(this.handleError));
   }
 
+  deleteSP(id):Observable<any>{
+    return this.httpClient.post<any>(this.base_path+'deleteSP',{id}).pipe(
+      map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
+
   getSPByCatID(part_id):Observable<any>{
     return this.httpClient.post<any>(this.base_path+'getByIdSPCategory',{part_id}).pipe(
       map((res) => {

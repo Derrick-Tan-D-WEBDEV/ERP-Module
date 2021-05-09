@@ -101,8 +101,8 @@
                       <td>{{sp.category_desc}}</td>
                       <td>{{sp.fullname}}</td>            
                       <td *ngIf="actionRole == 'Admin'">
-                        <button class="btn btn-warning"><i class="fas fa-pen"></i></button>
-                        <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-warning" (click)="editSP(sp.id,sp.erp_code)"><i class="fas fa-pen"></i></button>
+                        <button class="btn btn-danger" (click)="deleteSP(sp.id)"><i class="fas fa-trash"></i></button>
                       </td>           
                     </tr>
                   </tbody>

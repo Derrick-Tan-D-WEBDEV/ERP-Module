@@ -1,3 +1,4 @@
+import { EditStandardPartComponent } from './../../pages/app-sc/edit-standard-part/edit-standard-part.component';
 import { DashboardComponent } from './../../pages/app-sc/user/dashboard/dashboard.component';
 import { Routes } from "@angular/router";
 import { AuthService as AuthGuard } from './../../services/auth.service';
@@ -46,7 +47,13 @@ export const UserLayoutRoutes: Routes = [
         component: ProfileComponent,
         canActivate:[AuthGuard],
         data: {expectedRole:'User'}
-      }
+      },
+      {
+        path: "edit-standard-part/:id",
+        component: EditStandardPartComponent,
+        canActivate:[AuthGuard],
+        data: {expectedRole:'User'}
+      },
     ]
   }
 ];
