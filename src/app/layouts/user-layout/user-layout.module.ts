@@ -1,3 +1,4 @@
+import { EditStandardPartComponent } from './../../pages/app-sc/user/edit-standard-part/edit-standard-part.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
@@ -43,7 +44,8 @@ import { ProfileComponent } from 'src/app/pages/app-sc/user/profile/profile.comp
     ViewStandardPartComponent,
     ViewOwnStandardPartComponent,
     AddStandardPartMsComponent,
-    ProfileComponent
+    ProfileComponent,
+    EditStandardPartComponent
   ]
 })
 export class UserLayoutModule {}

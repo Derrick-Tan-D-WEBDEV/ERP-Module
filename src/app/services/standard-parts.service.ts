@@ -87,6 +87,14 @@ export class StandardPartsService {
     catchError(this.handleError));
   }
 
+  editSP(data):Observable<any>{
+
+    return this.httpClient.post<any>(this.base_path+'editSP',{data}).pipe(
+      map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
 
   addSP(data):Observable<any>{
     var product_part_number = data.product_part_number;

@@ -122,8 +122,16 @@ export class ViewStandardPartComponent implements OnInit {
     });
   }
 
-  editSP(id,erp_code){
 
+  editSP(id,erp_code){
+    const substring = ".";
+    console.log(erp_code);
+    if(erp_code.includes(substring)){
+      this.router.navigateByUrl('/user/edit-standard-part/'+id+'/1');
+    }
+    else{
+      this.router.navigateByUrl('/user/edit-standard-part/'+id+'/0');
+    }
   }
 
 
