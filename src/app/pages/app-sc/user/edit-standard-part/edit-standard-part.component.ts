@@ -40,10 +40,10 @@ export class EditStandardPartComponent implements OnInit {
     this.editForm =  this.formBuilder.group({
       sp_category: ['', Validators.required],
       type_item: ['', Validators.required],
-      product_part_number: ['', Validators.required],
+      product_part_number: ['', [Validators.pattern('^[a-zA-Z0-9 \-\'Ø+_&/\\().,#-]+'),Validators.required]],
       greatech_drawing_naming: ['', Validators.required],
       description: ['', Validators.required],
-      brand: ['', Validators.required],
+      brand: ['', [Validators.pattern('^[a-zA-Z0-9 \-\'Ø+_&/\\().,#-]+'),Validators.required]],
       uom: ['', Validators.required],
       remark: [''],
       assign_material: ['', Validators.required],
@@ -93,8 +93,8 @@ export class EditStandardPartComponent implements OnInit {
               toastClass:
                 "ngx-toastr alert alert-dismissible alert-success alert-notify"
             }
-          );     
-          //.onHidden.pipe(take(1)).subscribe(()=>this.router.navigate(['user/dashboard'])); 
+          ).onHidden.pipe(take(1)).subscribe(()=>this.router.navigate(['user/dashboard']));      
+
           this.isSubmitted = false;
         }
         else{

@@ -32,10 +32,10 @@ export class AddStandardPartMsComponent implements OnInit {
     this.addForm =  this.formBuilder.group({
       sp_category: ['', Validators.required],//this
       type_item: ['', Validators.required],
-      product_part_number: ['', Validators.required], 
+      product_part_number: ['', [Validators.pattern('^[a-zA-Z0-9 \-\'Ø+_&/\\().,#]+'),Validators.required]], 
       greatech_drawing_naming: ['', Validators.required],
       description: ['', Validators.required],
-      brand: ['', Validators.required],
+      brand: ['', [Validators.pattern('^[a-zA-Z0-9 \-\'Ø+_&/\\().,#]+'),Validators.required]],
       uom: ['', Validators.required],
       remark: [''],
       assign_material: ['', Validators.required],
@@ -76,10 +76,10 @@ export class AddStandardPartMsComponent implements OnInit {
     return this.formBuilder.group({
       sp_category: ['', Validators.required],
       type_item: ['', Validators.required],
-      product_part_number: ['', Validators.required], 
+      product_part_number: ['', [Validators.pattern('^[a-zA-Z0-9 \-\'Ø+_&/\\().,#-]+'),Validators.required]], 
       greatech_drawing_naming: ['', Validators.required],
       description: ['', Validators.required],
-      brand: ['', Validators.required],
+      brand: ['', [Validators.pattern('^[a-zA-Z0-9 \-\'Ø+_&/\\().,#-]+'),Validators.required]],
       uom: ['', Validators.required],
       remark: [''],
       assign_material: ['', Validators.required],

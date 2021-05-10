@@ -102,6 +102,7 @@
                   </div>
                   <div *ngIf="isSubmitted && f.product_part_number.errors" class="help-block">
                     <div *ngIf="f.product_part_number.errors.required">Product Part Number is required!</div>
+                    <div *ngIf="f.product_part_number.errors.pattern">Some characters are not allowed in Product Part Number!</div>
                   </div>
                 </div>
                 <label>Greatech Drawing Naming</label>
@@ -159,6 +160,7 @@
                   </div>
                   <div *ngIf="isSubmitted && f.brand.errors" class="help-block">
                     <div *ngIf="f.brand.errors.required">Brand is required!</div>
+                    <div *ngIf="f.brand.errors.pattern">Some characters are not allowed in Brand!</div>
                   </div>
                 </div>  
                 <label>UOM</label>
