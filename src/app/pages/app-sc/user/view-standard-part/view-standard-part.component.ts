@@ -13,7 +13,7 @@ import { StandardPartCategoryService } from 'src/app/services/standard-part-cate
   templateUrl: './view-standard-part.component.html',
   styleUrls: ['./view-standard-part.component.scss']
 })
-export class ViewStandardPartComponent implements OnInit {
+export class ViewStandardPartComponent implements OnInit,AfterViewInit {
   @ViewChild(DataTableDirective) dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();

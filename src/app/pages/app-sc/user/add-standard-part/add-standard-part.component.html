@@ -61,7 +61,28 @@
                   <div *ngIf="isSubmitted && f.sp_category.errors" class="help-block">
                     <div *ngIf="f.sp_category.errors.required">Standard Part Category is required!</div>
                   </div>
-
+                </div>
+                <label *ngIf="category_id == 8">Vendor</label>
+                <div class="form-group mb-3" *ngIf="category_id == 8">
+                  <div class="input-group input-group-alternative" [ngClass]="{ 'has-error': isSubmitted && f.vendor.errors }">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                        ><i class="fas fa-user"></i>
+                      </span>
+                    </div>
+                    <select
+                        class="form-control"
+                        placeholder="Category"
+                        formControlName="vendor"
+                        (change)="vendorOnChange($event.target.value)"
+                    >
+                        <option value="lv" selected>Local Vendor</option>
+                        <option value="av" >Appointed Vendor</option>
+                    </select>
+                  </div>
+                  <div *ngIf="isSubmitted && f.vendor.errors" class="help-block">
+                    <div *ngIf="f.vendor.errors.required">Vendor is required!</div>
+                  </div>
                 </div>
                 <label>Type Item</label>
                 <div class="form-group">

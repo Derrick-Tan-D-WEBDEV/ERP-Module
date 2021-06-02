@@ -21,6 +21,7 @@ export class AddStandardPartComponent implements OnInit {
   sp_uom:any;
   addForm: FormGroup;
   isSubmitted:boolean;
+  category_id:any = 0;
   constructor(private _standardPartService:StandardPartsService,private _stadardPartTypeItemService:StandardPartTypeItemService,private _chRef: ChangeDetectorRef,private _standardPartCategoryService:StandardPartCategoryService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
@@ -37,11 +38,13 @@ export class AddStandardPartComponent implements OnInit {
       remark: [''],
       assign_material: ['', Validators.required],
       assign_weight: ['', Validators.required],
-      folder_location: ['', Validators.required]
+      folder_location: ['', Validators.required],
+      vendor: ['lv', Validators.required]
     });
   }
 
   typeItemOnChange(val){
+    this.category_id = val;
     if(val){
       this.getAllTypeItem(val);
     }
@@ -50,7 +53,9 @@ export class AddStandardPartComponent implements OnInit {
     }
 
   }
-
+  vendorOnChange(){
+    
+  }
   get f() {
     return this.addForm.controls
   }
@@ -58,7 +63,10 @@ export class AddStandardPartComponent implements OnInit {
   add(values){
     this.isSubmitted = true;
     values["user_id"] = this._authService.getUserID();
-    console.log(values);
+
+    if(values["sp_category"] != 8){
+      values["vendor"] = null;
+    }
     if(this.addForm.invalid){
       return;
     }
