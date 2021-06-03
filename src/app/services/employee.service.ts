@@ -53,4 +53,6 @@ export class EmployeeService {
     }),
     catchError(this.handleError));    
   }
+
+  addUsers
 }

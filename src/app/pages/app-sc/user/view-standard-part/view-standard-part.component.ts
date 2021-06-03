@@ -53,7 +53,7 @@ export class ViewStandardPartComponent implements OnInit,AfterViewInit {
   getAllSP(){
     this.tableDataReady = 0;
     this._standardPartService.getAllSP().subscribe((response) => {
-      this.standard_parts = response;
+      this.standard_parts = response.result;
       this.rerender();
       this.tableDataReady = 1;
     },

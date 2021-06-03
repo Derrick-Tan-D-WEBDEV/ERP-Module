@@ -40,6 +40,7 @@ export class ViewOwnStandardPartComponent implements OnInit {
 
   getAllSPByUserID(){
     this._standardPartService.getSPByUserID(this.id).subscribe((response) => {
+      console.log(response);
       this.standard_parts = response;
       this.tableDataReady = 1;
       this.rerender();
