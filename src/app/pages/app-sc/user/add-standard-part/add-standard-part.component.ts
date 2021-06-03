@@ -53,9 +53,11 @@ export class AddStandardPartComponent implements OnInit {
     }
 
   }
+  
   vendorOnChange(){
     
   }
+
   get f() {
     return this.addForm.controls
   }

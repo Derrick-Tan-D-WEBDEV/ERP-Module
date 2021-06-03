@@ -1,0 +1,73 @@
+<div class=" header bg-dark pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-6 col-7">
+            <h6 class=" h2 text-white d-inline-block mb-0">View User</h6>
+  
+            <nav
+              aria-label="breadcrumb"
+              class=" d-none d-md-inline-block ml-md-4"
+            >
+              <ol class=" breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class=" breadcrumb-item">
+                  <a href="javascript:void(0)"> <i class=" fas fa-home"> </i> </a>
+                </li>
+  
+                <li class=" breadcrumb-item">
+                  <a href="javascript:void(0)"> View User </a>
+                </li>
+  
+              </ol>
+            </nav>
+          </div>
+        </div>
+  
+        <div class=" row">
+          <div class=" col-sm-12">
+  
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  
+  <div class=" container-fluid mt--6">
+    <div class="row">
+      <div class="col-sm-12" >
+        <div class=" card card-stats">
+          <div class=" card-body">
+            <div class=" row">
+              <div class="col-12 text-center">
+                
+                <table #myTable datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" *ngIf="tableDataReady == 1"  class="display nowrap" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Employee ID</th>
+                        <th>Full Name</th>
+                        <th>Name</th>
+                    </tr>
+                  </thead>
+                  <tbody class="table-sb" >
+                    <tr *ngFor="let u of users">
+                      <td>{{sp.id}}</td>
+                      <td>{{sp.erp_code}}</td>
+                     
+  
+                    </tr>
+                  </tbody>
+                </table>
+                <div *ngIf="tableDataReady == 0">
+                  Loading
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div> 
+  </div>
+  
+  

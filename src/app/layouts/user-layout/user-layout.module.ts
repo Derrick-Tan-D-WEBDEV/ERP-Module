@@ -1,3 +1,9 @@
+import { ViewViewerComponent } from './../../pages/app-sc/user/view-viewer/view-viewer.component';
+import { ViewUserComponent } from './../../pages/app-sc/user/view-user/view-user.component';
+import { EditViewerComponent } from './../../pages/app-sc/user/edit-viewer/edit-viewer.component';
+import { EditUserComponent } from './../../pages/app-sc/user/edit-user/edit-user.component';
+import { AddViewerComponent } from './../../pages/app-sc/user/add-viewer/add-viewer.component';
+import { AddUserComponent } from './../../pages/app-sc/user/add-user/add-user.component';
 import { EditStandardPartComponent } from './../../pages/app-sc/user/edit-standard-part/edit-standard-part.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from "@angular/core";
@@ -45,7 +51,13 @@ import { ProfileComponent } from 'src/app/pages/app-sc/user/profile/profile.comp
     ViewOwnStandardPartComponent,
     AddStandardPartMsComponent,
     ProfileComponent,
-    EditStandardPartComponent
+    EditStandardPartComponent,
+    AddUserComponent,
+    AddViewerComponent,
+    EditUserComponent,
+    EditViewerComponent,
+    ViewUserComponent,
+    ViewViewerComponent
   ]
 })
 export class UserLayoutModule {}

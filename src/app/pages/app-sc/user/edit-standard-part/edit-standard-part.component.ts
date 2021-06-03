@@ -48,7 +48,8 @@ export class EditStandardPartComponent implements OnInit {
       remark: [''],
       assign_material: ['', Validators.required],
       assign_weight: ['', Validators.required],
-      folder_location: ['', Validators.required]
+      folder_location: ['', Validators.required],
+      vendor: ['', Validators.required]
     });
 
   }
@@ -72,7 +73,10 @@ export class EditStandardPartComponent implements OnInit {
     this.isSubmitted = true;
     values["user_id"] = this._authService.getUserID();
     values["id"] = this.id;
-    console.log(values);
+
+    if(values["sp_category"] != 8){
+      values["vendor"] = null;
+    }
     if(this.editForm.invalid){
       return;
     }
@@ -223,7 +227,8 @@ export class EditStandardPartComponent implements OnInit {
           remark: response[0].remark,
           assign_material: response[0].assign_material,
           assign_weight: response[0].assign_weight,
-          folder_location: response[0].folder_location
+          folder_location: response[0].folder_location,
+          vendor: response[0].vendor
         })
       }
 
