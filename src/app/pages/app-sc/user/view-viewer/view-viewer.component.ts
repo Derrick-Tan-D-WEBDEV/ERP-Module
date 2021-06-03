@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { StandardPartsService } from 'src/app/services/standard-parts.service';
 import { DataTableDirective } from 'angular-datatables';
 import { StandardPartCategoryService } from 'src/app/services/standard-part-category.service';
+import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
   selector: 'app-view-viewer',
@@ -19,11 +20,11 @@ export class ViewViewerComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   
-  standard_parts:any; 
+  viewer:any; 
   actionRole:any;
   sp_category:any;
-  tableDataReady:any = 0;
-  constructor(private _chRef: ChangeDetectorRef,private _standardPartCategoryService:StandardPartCategoryService,private _standardPartService:StandardPartsService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
+  tableDataReady:any = 1;
+  constructor(private _chRef: ChangeDetectorRef,private _employeeService:EmployeeService,private _standardPartService:StandardPartsService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
     this.actionRole = this._authService.getActionRole();
@@ -32,23 +33,23 @@ export class ViewViewerComponent implements OnInit {
       pagingType: 'full_numbers',
       scrollX: true
     };
-    this.getAllSP();
+    this.getAllViewer();
   }
 
   ngAfterViewInit() {
     this.dtTrigger.next();
   }
 
-  getAllSP(){
-    this.tableDataReady = 0;
-    this._standardPartService.getAllSP().subscribe((response) => {
-      this.standard_parts = response;
+  getAllViewer(){
+    this.tableDataReady = 1;
+    this._employeeService.getAllViewer().subscribe((response) => {
+      this.viewer = response.allViewer;
       this.rerender();
       this.tableDataReady = 1;
     },
     error => {
       this._toastrService.show(
-        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to login!</span> <span data-notify="message">Please check your credentials! Please contact the support, if needed!</span></div>',
+        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to retrieve viewer!</span> <span data-notify="message">Please contact the support, if needed!</span></div>',
         "",
         {
           timeOut: 1000,
@@ -64,28 +65,28 @@ export class ViewViewerComponent implements OnInit {
     });
   }
 
-  editSP(id,erp_code){
-    const substring = ".";
-    console.log(erp_code);
-    if(erp_code.includes(substring)){
-      this.router.navigateByUrl('/user/edit-standard-part/'+id+'/1');
-    }
-    else{
-      this.router.navigateByUrl('/user/edit-standard-part/'+id+'/0');
-    }
+  editViewer(id){
+    this.router.navigateByUrl('/user/edit-viewer/'+id);
   }
 
-
-  deleteSP(id){
-    this._standardPartService.deleteSP(id).subscribe((response) => {
+  deleteViewer(id){
+    this._employeeService.deleteViewer(id).subscribe((response) => {
       console.log(response);
-      var val = (<HTMLInputElement>document.getElementById("category_id")).value;
-      // if(val){
-      //   this.getSPByCatID(val);
-      // }
-      // else{
-      //   this.getAllSP();
-      // }
+      this.getAllViewer();
+      this._toastrService.show(
+        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Successfully delete viewer!</span> <span data-notify="message">Nice!</span></div>',
+        "",
+        {
+          timeOut: 1000,
+          closeButton: true,
+          enableHtml: true,
+          tapToDismiss: false,
+          titleClass: "alert-title",
+          positionClass: "toast-bottom-center",
+          toastClass:
+            "ngx-toastr alert alert-dismissible alert-success alert-notify"
+        }
+      ); 
     },
     error => {
       this._toastrService.show(

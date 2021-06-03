@@ -145,10 +145,24 @@ export class ViewStandardPartComponent implements OnInit,AfterViewInit {
       else{
         this.getAllSP();
       }
+      this._toastrService.show(
+        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Successfully delete standard part!</span> <span data-notify="message">Nice!</span></div>',
+        "",
+        {
+          timeOut: 1000,
+          closeButton: true,
+          enableHtml: true,
+          tapToDismiss: false,
+          titleClass: "alert-title",
+          positionClass: "toast-bottom-center",
+          toastClass:
+            "ngx-toastr alert alert-dismissible alert-success alert-notify"
+        }
+      ); 
     },
     error => {
       this._toastrService.show(
-        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to delete!</span> <span data-notify="message">Please check your credentials! Please contact the support, if needed!</span></div>',
+        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to delete!</span> <span data-notify="message">Please contact the support, if needed!</span></div>',
         "",
         {
           timeOut: 1000,

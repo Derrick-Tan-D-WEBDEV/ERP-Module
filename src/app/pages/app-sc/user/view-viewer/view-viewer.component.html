@@ -48,14 +48,19 @@
                         <th>Employee ID</th>
                         <th>Full Name</th>
                         <th>Name</th>
+                        <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody class="table-sb" >
-                    <tr *ngFor="let u of users">
-                      <td>{{sp.id}}</td>
-                      <td>{{sp.erp_code}}</td>
-                     
-  
+                    <tr *ngFor="let v of viewer">
+                      <td>{{v.id}}</td>
+                      <td>{{v.employeeID}}</td>
+                      <td>{{v.fullname}}</td>
+                      <td>{{v.name}}</td>
+                      <td >
+                        <button class="btn btn-warning" (click)="editViewer(v.id)"><i class="fas fa-pen"></i></button>
+                        <button class="btn btn-danger" (click)="deleteViewer(v.id)"><i class="fas fa-trash"></i></button>
+                      </td>
                     </tr>
                   </tbody>
                 </table>

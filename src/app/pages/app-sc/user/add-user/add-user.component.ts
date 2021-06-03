@@ -9,6 +9,7 @@ import { StandardPartsService } from 'src/app/services/standard-parts.service';
 import { DataTableDirective } from 'angular-datatables';
 import { StandardPartCategoryService } from 'src/app/services/standard-part-category.service';
 import { StandardPartTypeItemService } from 'src/app/services/standard-part-type-item.service';
+import { EmployeeService } from 'src/app/services/employee.service';
 
 @Component({
   selector: 'app-add-user',
@@ -18,7 +19,7 @@ import { StandardPartTypeItemService } from 'src/app/services/standard-part-type
 export class AddUserComponent implements OnInit {
   addForm: FormGroup;
   isSubmitted:boolean;
-  constructor(private _standardPartService:StandardPartsService,private _stadardPartTypeItemService:StandardPartTypeItemService,private _chRef: ChangeDetectorRef,private _standardPartCategoryService:StandardPartCategoryService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
+  constructor(private _employeeService:EmployeeService,private _stadardPartTypeItemService:StandardPartTypeItemService,private _chRef: ChangeDetectorRef,private _standardPartCategoryService:StandardPartCategoryService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
     this.addForm =  this.formBuilder.group({
@@ -40,7 +41,7 @@ export class AddUserComponent implements OnInit {
       return;
     }
     else{
-      this._standardPartService.addSP(values).subscribe((response) => {
+      this._employeeService.addUser(values.emp_id, values.email, values.fullname, values.name).subscribe((response) => {
 
         if(response.status){
           this._toastrService.show(

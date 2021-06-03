@@ -54,5 +54,67 @@ export class EmployeeService {
     catchError(this.handleError));    
   }
 
-  addUsers
+  addUser(employeeID, email, fullname, name):Observable<any>{
+    return this.httpClient.post<any>(this.base_path+'createUser',{employeeID, email, fullname, name}).pipe(
+      map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));   
+  }
+
+  editUser(id, employeeID, email, fullname, name):Observable<any>{
+    return this.httpClient.post<any>(this.base_path+'editUser',{id, employeeID, email, fullname, name}).pipe(
+      map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));   
+  }
+
+  deleteUser(id):Observable<any>{
+    return this.httpClient.post<any>(this.base_path+'deleteUser',{id}).pipe(
+      map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));   
+  }
+
+  getAllUser():Observable<any>{
+    return this.httpClient.get<any>(this.base_path+'getAllUser').pipe(
+      map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));    
+  }
+
+  addViewer(employeeID, email, fullname, name):Observable<any>{
+    return this.httpClient.post<any>(this.base_path+'createViewer',{employeeID, email, fullname, name}).pipe(
+      map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));   
+  }
+
+  editViewer(id, employeeID, email, fullname, name):Observable<any>{
+    return this.httpClient.post<any>(this.base_path+'editViewer',{id, employeeID, email, fullname, name}).pipe(
+      map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));   
+  }
+
+  deleteViewer(id):Observable<any>{
+    return this.httpClient.post<any>(this.base_path+'deleteViewer',{id}).pipe(
+      map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));   
+  }
+
+  getAllViewer():Observable<any>{
+    return this.httpClient.get<any>(this.base_path+'getAllViewer').pipe(
+      map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));    
+  }
 }

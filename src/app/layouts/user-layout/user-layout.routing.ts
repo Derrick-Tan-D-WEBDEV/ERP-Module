@@ -73,13 +73,13 @@ export const UserLayoutRoutes: Routes = [
         data: {expectedRole:'User'}
       },
       {
-        path: "edit-user",
+        path: "edit-user/:id",
         component: EditUserComponent,
         canActivate:[AuthGuard],
         data: {expectedRole:'User'}
       },
       {
-        path: "edit-viewer",
+        path: "edit-viewer/:id",
         component: EditViewerComponent,
         canActivate:[AuthGuard],
         data: {expectedRole:'User'}
