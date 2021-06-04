@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { Meta, Title } from "@angular/platform-browser";
 import { Router, Event, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
+import { AuthService } from "./services/auth.service";
 
 @Component({
   selector: "app-root",
@@ -10,7 +11,8 @@ import { Router, Event, NavigationStart, NavigationEnd, NavigationError } from '
 export class AppComponent {
   title = 'Greatech ERP.S';
   
-  constructor(private titleService: Title, private metaService: Meta,private router: Router) {
+  constructor(private _authService:AuthService,private titleService: Title, private metaService: Meta,private router: Router) {
+
 
       this.titleService.setTitle(this.title);
       this.metaService.addTags([

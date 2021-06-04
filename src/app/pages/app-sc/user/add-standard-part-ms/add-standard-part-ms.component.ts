@@ -31,10 +31,10 @@ export class AddStandardPartMsComponent implements OnInit {
     if(!auth_role.includes(this._authService.getActionRole())){
       this.router.navigate(['/user/dashboard']);
     }
-    this.getAllSPCategory();
+    // this.getAllSPCategory();
     this.getAllSPUOM();
     this.addForm =  this.formBuilder.group({
-      sp_category: ['', Validators.required],//this
+      sp_category: ['Customize Standard Parts', Validators.required],//this
       type_item: ['', Validators.required],
       product_part_number: ['', [Validators.pattern('^[a-zA-Z0-9 \-\'Ø+_&/\\().,#]+'),Validators.required]], 
       greatech_drawing_naming: ['', Validators.required],
@@ -51,21 +51,23 @@ export class AddStandardPartMsComponent implements OnInit {
   }
   
   typeItemOnChange(val){
-    if(val){
-      this.getAllTypeItem(val);
-    }
-    else{
-      this.sp_category.removeAt();
-    }
+    // if(val){
+    //   this.getAllTypeItem(val);
+    // }
+    // else{
+    //   this.sp_category.removeAt();
+    // }
 
   }
   
   typeItemOnChangeIndex(i,val){
-    if(val){
-      this.getAllTypeItem(val,"");
-      this.sp_typeitem_index[i] = this.temp_typeitem;
-      this.temp_typeitem = {};
-    }
+    // console.log(val);
+    // if(val){
+    //   this.getAllTypeItem(val,"");
+    //   this.sp_typeitem_index[i] = this.temp_typeitem;
+    //   this.temp_typeitem = {};
+    //   console.log(this.sp_typeitem_index);
+    // }
   }
 
   get f_sub() :FormArray {
@@ -78,7 +80,7 @@ export class AddStandardPartMsComponent implements OnInit {
 
   newSub(): FormGroup {
     return this.formBuilder.group({
-      sp_category: ['', Validators.required],
+      sp_category: ['Customize Standard Parts', Validators.required],
       type_item: ['', Validators.required],
       product_part_number: ['', [Validators.pattern('^[a-zA-Z0-9 \-\'Ø+_&/\\().,#-]+'),Validators.required]], 
       greatech_drawing_naming: ['', Validators.required],

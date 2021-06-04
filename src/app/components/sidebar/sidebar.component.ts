@@ -159,6 +159,10 @@ export class SidebarComponent implements OnInit {
     this.id = this._authService.getUserID();
     this.api_key = this._authService.getAccessToken();
     this.role = this._authService.getActionRole();
+    console.log(this._authService.getVersion());
+    if(this._authService.getVersion() != 'v6.5.1'){
+      this.router.navigate(['/user/login']);
+    }
     console.log(this.role);
     if(this.role == "User"){
       this.menuItems = ROUTES_USER.filter(menuItem => menuItem);

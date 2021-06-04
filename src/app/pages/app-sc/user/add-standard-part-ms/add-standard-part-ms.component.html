@@ -55,8 +55,7 @@
                         formControlName="sp_category"
                         (change)="typeItemOnChange($event.target.value)"
                     >
-                        <option value="" selected>--Select a category--</option>
-                        <option *ngFor="let spc of sp_category;let i = index" value="{{spc.id}}" >{{spc.type}} - {{spc.description}}</option>
+                      <option value="Customize Standard Parts" selected>Customize Standard Parts</option>
                     </select>
                   </div>
                   <div *ngIf="isSubmitted && f.sp_category.errors" class="help-block">
@@ -78,7 +77,8 @@
                         formControlName="type_item"
                     >
                         <option value="" selected>--Select a type item--</option>
-                        <option *ngFor="let spc of sp_typeitem;let i = index" value="{{spc.type_item}}" >{{spc.type_item}}</option>
+                        <option value="Customize Standard Parts">Customize Standard Parts</option>
+                        <option value="Provide Services">Provide Services</option>
                     </select>
                   </div>
                   <div *ngIf="isSubmitted && f.type_item.errors" class="help-block">
@@ -302,14 +302,14 @@
                             (change)="typeItemOnChangeIndex(i,$event.target.value)"
                             [ngClass]="{ 'sub-error': isSubmitted && sub.controls.sp_category.errors }"
                             >
-                              <option value="" selected>--Select a category--</option>
-                              <option *ngFor="let spc of sp_category;let i = index" value="{{spc.id}}" >{{spc.type}} - {{spc.description}}</option>
+                              <option value="Customize Standard Parts" selected>Customize Standard Parts</option>
                             </select>
                           </td>
                           <td>
                             <select type="text" formControlName="type_item" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.type_item.errors }">
                               <option value="" selected>--Select a type item--</option>
-                              <option *ngFor="let spc of sp_typeitem_index[i]" value="{{spc.type_item}}" >{{spc.type_item}}</option>
+                              <option value="Customize Standard Parts">Customize Standard Parts</option>
+                              <option value="Provide Services">Provide Services</option>
                             </select>
                           </td>
                           <td><input type="text" formControlName="product_part_number" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.product_part_number.errors }"></td>
@@ -350,7 +350,7 @@
                               <option value="Overwrite by user">Overwrite by User</option>
                             </select>
                           </td>
-                          <td><button class="btn btn-warning btn-sm" (click)="removeSub(i)"><i class="fas fa-dumpster"></i></button></td>
+                          <td><button class="btn btn-warning btn-sm" (click)="removeSub(i)"><i class="fas fa-trash"></i></button></td>
                           
                         </tr>
                       </ng-container>

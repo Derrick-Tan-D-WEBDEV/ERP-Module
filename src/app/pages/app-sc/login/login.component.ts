@@ -25,12 +25,16 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this._role = this._authService.getRole();
-    if(this._authService.isAuthenticated()){
-      if(this._authService.getRole() == "User"){
+
+    if(this._authService.isAuthenticated() && this._authService.getVersion() == 'v6.5.1'){
+      if(this._authService.getRole() == "User" && this._authService.getVersion() == 'v6.5.1'){
+        
         this.router.navigate(['user/dashboard']);
       }
-      else if(this._authService.getRole() == "Admin"){
+      else if(this._authService.getRole() == "Admin" && this._authService.getVersion() == 'v6.5.1'){
         this.router.navigate(['admin/dashboard']);
+      }
+      else{
       }
     }else{
       console.log("Please Log in")
@@ -62,6 +66,7 @@ export class LoginComponent implements OnInit {
           this._authService.setRole("User");
           this._authService.setActionRole(response.role);
           this._authService.setID(response.id);
+          this._authService.setVersion("v6.5.1");
           this._toastrService.show(
             '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Login Success!</span> <span data-notify="message">Welcome back to Greatech ERP.S!</span></div>',
             "",

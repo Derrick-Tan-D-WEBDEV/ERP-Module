@@ -80,8 +80,16 @@ export class AuthService implements CanActivate{
         localStorage.setItem('ActionRole',role);
     }
     
+    setVersion(ver){
+        localStorage.setItem('Version',ver);
+    }
+
     getRole(){
         return localStorage.getItem('Role');
+    }
+
+    getVersion(){
+        return localStorage.getItem('Version');
     }
 
     getUsername(){
