@@ -62,7 +62,7 @@
                     <th>Category Type</th>
                     <th>Category</th>
                     <th>Update By</th>
-                    <th *ngIf="actionRole == 'Admin'" >
+                    <th *ngIf="actionRole != 'Viewer'" >
                       Actions
                     </th>
                   </tr>
@@ -87,7 +87,7 @@
                     <td>{{sp.category_type}}</td>
                     <td>{{sp.category_desc}}</td>
                     <td>{{sp.fullname}}</td> 
-                    <td *ngIf="actionRole == 'Admin'">
+                    <td *ngIf="actionRole != 'Viewer'">
                       <button class="btn btn-warning" (click)="editSP(sp.id,sp.erp_code)"><i class="fas fa-pen"></i></button>
                       <button class="btn btn-danger" (click)="deleteSP(sp.id)"><i class="fas fa-trash"></i></button>
                     </td> 

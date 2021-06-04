@@ -29,6 +29,7 @@ export class ViewOwnStandardPartComponent implements OnInit {
       this.router.navigate(['/user/dashboard']);
     }
     this.id = this._authService.getUserID();
+    console.log(this.id);
     this.getAllSPByUserID();
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -40,6 +41,57 @@ export class ViewOwnStandardPartComponent implements OnInit {
   ngAfterViewInit() {
     this.dtTrigger.next();
   }
+
+  editSP(id,erp_code){
+    const substring = ".";
+    console.log(erp_code);
+    if(erp_code.includes(substring)){
+      this.router.navigateByUrl('/user/edit-standard-part/'+id+'/1');
+    }
+    else{
+      this.router.navigateByUrl('/user/edit-standard-part/'+id+'/0');
+    }
+  }
+
+
+  deleteSP(id){
+    this._standardPartService.deleteSP(id).subscribe((response) => {
+      console.log(response);
+      // var val = (<HTMLInputElement>document.getElementById("category_id")).value;
+      this.getAllSPByUserID();
+      this._toastrService.show(
+        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Successfully delete standard part!</span> <span data-notify="message">Nice!</span></div>',
+        "",
+        {
+          timeOut: 1000,
+          closeButton: true,
+          enableHtml: true,
+          tapToDismiss: false,
+          titleClass: "alert-title",
+          positionClass: "toast-bottom-center",
+          toastClass:
+            "ngx-toastr alert alert-dismissible alert-success alert-notify"
+        }
+      ); 
+    },
+    error => {
+      this._toastrService.show(
+        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to delete!</span> <span data-notify="message">Please contact the support, if needed!</span></div>',
+        "",
+        {
+          timeOut: 1000,
+          closeButton: true,
+          enableHtml: true,
+          tapToDismiss: false,
+          titleClass: "alert-title",
+          positionClass: "toast-bottom-center",
+          toastClass:
+            "ngx-toastr alert alert-dismissible alert-danger alert-notify"
+        }
+      );
+    });
+  }
+
 
   getAllSPByUserID(){
     this._standardPartService.getSPByUserID(this.id).subscribe((response) => {

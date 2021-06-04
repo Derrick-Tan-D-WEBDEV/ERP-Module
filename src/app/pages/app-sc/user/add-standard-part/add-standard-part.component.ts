@@ -43,7 +43,7 @@ export class AddStandardPartComponent implements OnInit {
       assign_material: ['', Validators.required],
       assign_weight: ['', Validators.required],
       folder_location: ['', Validators.required],
-      vendor: ['lv', Validators.required]
+      vendor: ['LV', Validators.required]
     });
   }
 
@@ -96,6 +96,9 @@ export class AddStandardPartComponent implements OnInit {
           );      
           this.addForm.reset();    
           this.isSubmitted = false;
+          this.addForm.patchValue({
+            vendor: 'LV'
+          })
         }
         else{
           this._toastrService.show(

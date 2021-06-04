@@ -33,7 +33,7 @@ export class EditStandardPartComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.is_sub = this.route.snapshot.paramMap.get('is_sub');
     this.getOneSP(this.id);
-    console.log(this.is_sub);
+
     var auth_role = ["Admin","User"];
     if(!auth_role.includes(this._authService.getActionRole())){
       this.router.navigate(['/user/dashboard']);
@@ -80,9 +80,9 @@ export class EditStandardPartComponent implements OnInit {
     values["user_id"] = this._authService.getUserID();
     values["id"] = this.id;
 
-    if(values["sp_category"] != 8){
-      values["vendor"] = null;
-    }
+    // if(values["sp_category"] != 8){
+    //   values["vendor"] = null;
+    // }
     if(this.editForm.invalid){
       return;
     }
@@ -236,6 +236,11 @@ export class EditStandardPartComponent implements OnInit {
           folder_location: response.result[0].folder_location,
           vendor: response.result[0].vendor
         })
+        if(response.result[0].vendor == ''){
+          this.editForm.patchValue({
+            vendor: 'LV'
+          })
+        }
       }
 
       
