@@ -31,6 +31,49 @@ export interface ChildrenItems2 {
   type?: string;
 }
 
+export const ROUTES_ADMIN: RouteInfo[] = [
+  {
+    path: "/user/dashboard",
+    title: "Dashboard",
+    type: "link",
+    icontype: "fas fa-th-large text-primary",
+  },
+  {
+    path: "/user",
+    title: "View",
+    type: "sub",
+    icontype: "fas fa-eye text-primary",
+    collapse: "owned-company",
+    isCollapsed: true,
+    children: [
+      { path: "view-standard-part", title: "Standard Part", type: "link" },
+      { path: "view-own-standard-part", title: "Own Standard Part", type: "link" },
+      { path: "view-user", title: "User", type: "link" },
+      { path: "view-viewer", title: "Viewer", type: "link" }
+    ]
+  },
+  {
+    path: "/user",
+    title: "Add",
+    type: "sub",
+    icontype: "fas fa-plus text-primary",
+    collapse: "owned-company",
+    isCollapsed: true,
+    children: [
+      { path: "add-standard-part", title: "Standard Part", type: "link" },
+      { path: "add-standard-part-ms", title: "Customized Standard Part", type: "link" },
+      { path: "add-user", title: "User", type: "link" },
+      { path: "add-viewer", title: "Viewer", type: "link" }
+    ]
+  },
+  {
+    path: "/user/profile",
+    title: "Profile",
+    type: "link",
+    icontype: "far fa-user text-primary",
+  }
+];
+
 export const ROUTES_USER: RouteInfo[] = [
   {
     path: "/user/dashboard",
@@ -47,7 +90,8 @@ export const ROUTES_USER: RouteInfo[] = [
     isCollapsed: true,
     children: [
       { path: "view-standard-part", title: "Standard Part", type: "link" },
-      { path: "view-own-standard-part", title: "Own Standard Part", type: "link" }
+      { path: "view-own-standard-part", title: "Own Standard Part", type: "link" },
+      { path: "view-viewer", title: "Viewer", type: "link" }
     ]
   },
   {
@@ -59,7 +103,8 @@ export const ROUTES_USER: RouteInfo[] = [
     isCollapsed: true,
     children: [
       { path: "add-standard-part", title: "Standard Part", type: "link" },
-      { path: "add-standard-part-ms", title: "Customized Standard Part", type: "link" }
+      { path: "add-standard-part-ms", title: "Customized Standard Part", type: "link" },
+      { path: "add-viewer", title: "Viewer", type: "link" }
     ]
   },
   {
@@ -70,15 +115,31 @@ export const ROUTES_USER: RouteInfo[] = [
   }
 ];
 
-export const ROUTES_ADMIN: RouteInfo[] = [
+export const ROUTES_VIEWER: RouteInfo[] = [
   {
-    path: "/admin/dashboard",
+    path: "/user/dashboard",
     title: "Dashboard",
     type: "link",
     icontype: "fas fa-th-large text-primary",
+  },
+  {
+    path: "/user",
+    title: "View",
+    type: "sub",
+    icontype: "fas fa-eye text-primary",
+    collapse: "owned-company",
+    isCollapsed: true,
+    children: [
+      { path: "view-standard-part", title: "Standard Part", type: "link" }
+    ]
+  },
+  {
+    path: "/user/profile",
+    title: "Profile",
+    type: "link",
+    icontype: "far fa-user text-primary",
   }
 ];
-
 @Component({
   selector: "app-sidebar",
   templateUrl: "./sidebar.component.html",
@@ -97,7 +158,8 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
     this.id = this._authService.getUserID();
     this.api_key = this._authService.getAccessToken();
-    this.role = this._authService.getRole();
+    this.role = this._authService.getActionRole();
+    console.log(this.role);
     if(this.role == "User"){
       this.menuItems = ROUTES_USER.filter(menuItem => menuItem);
       this.router.events.subscribe(event => {
@@ -106,6 +168,12 @@ export class SidebarComponent implements OnInit {
 
     }else if(this.role == "Admin"){
       this.menuItems = ROUTES_ADMIN.filter(menuItem => menuItem);
+      this.router.events.subscribe(event => {
+        this.isCollapsed = true;
+      });
+    }
+    else if(this.role == "Viewer"){
+      this.menuItems = ROUTES_VIEWER.filter(menuItem => menuItem);
       this.router.events.subscribe(event => {
         this.isCollapsed = true;
       });

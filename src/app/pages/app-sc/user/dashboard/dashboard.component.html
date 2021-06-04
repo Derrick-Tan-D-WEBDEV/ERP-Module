@@ -32,12 +32,12 @@
   
   <div class=" container-fluid mt--6">
     <div class="row">
-      <div class="col-12">
+      <div class="col-12" *ngIf="role == 'Admin' || role == 'User'">
         <div class="badge badge-warning">
           Navigation [Add Functions]
         </div>
       </div>
-      <div class="mt-2 col-xl-4 col-lg-4 col-md-6 col-sm-12" [routerLink]="['/user/add-standard-part']">
+      <div class="mt-2 col-xl-4 col-lg-4 col-md-6 col-sm-12" [routerLink]="['/user/add-standard-part']" *ngIf="role == 'Admin' || role == 'User'">
         <div class=" card card-stats card-shadow">
           <div class=" card-body">
             <div class=" row">
@@ -49,7 +49,7 @@
           </div>
         </div>
       </div> 
-      <div class="mt-2 col-xl-4 col-lg-4 col-md-6 col-sm-12" [routerLink]="['/user/add-standard-part-ms']">
+      <div class="mt-2 col-xl-4 col-lg-4 col-md-6 col-sm-12" [routerLink]="['/user/add-standard-part-ms']" *ngIf="role == 'Admin' || role == 'User'">
         <div class=" card card-stats card-shadow">
           <div class=" card-body">
             <div class=" row">
@@ -61,7 +61,7 @@
           </div>
         </div>
       </div> 
-      <div class="mt-2 col-xl-4 col-lg-4 col-md-6 col-sm-12" [routerLink]="['/user/add-user']">
+      <div class="mt-2 col-xl-4 col-lg-4 col-md-6 col-sm-12" [routerLink]="['/user/add-user']" *ngIf="role == 'Admin'">
         <div class=" card card-stats card-shadow">
           <div class=" card-body">
             <div class=" row">
@@ -73,7 +73,7 @@
           </div>
         </div>
       </div> 
-      <div class="mt-2 col-xl-4 col-lg-4 col-md-6 col-sm-12" [routerLink]="['/user/add-viewer']">
+      <div class="mt-2 col-xl-4 col-lg-4 col-md-6 col-sm-12" [routerLink]="['/user/add-viewer']" *ngIf="role == 'Admin' || role == 'User'">
         <div class=" card card-stats card-shadow">
           <div class=" card-body">
             <div class=" row">
@@ -90,7 +90,7 @@
           Navigation [View Functions]
         </div>
       </div>
-      <div class="mt-2 col-xl-4 col-lg-4 col-md-6 col-sm-12" [routerLink]="['/user/view-standard-part']">
+      <div class="mt-2 col-xl-4 col-lg-4 col-md-6 col-sm-12" [routerLink]="['/user/view-standard-part']" *ngIf="role == 'Admin' || role == 'User' || role == 'Viewer'">
         <div class=" card card-stats card-shadow">
           <div class=" card-body">
             <div class=" row">
@@ -102,7 +102,7 @@
           </div>
         </div>
       </div> 
-      <div class="mt-2 col-xl-4 col-lg-4 col-md-6 col-sm-12" [routerLink]="['/user/view-own-standard-part']">
+      <div class="mt-2 col-xl-4 col-lg-4 col-md-6 col-sm-12" [routerLink]="['/user/view-own-standard-part']" *ngIf="role == 'Admin' || role == 'User'">
         <div class=" card card-stats card-shadow">
           <div class=" card-body">
             <div class=" row">
@@ -114,7 +114,7 @@
           </div>
         </div>
       </div> 
-      <div class="mt-2 col-xl-4 col-lg-4 col-md-6 col-sm-12" [routerLink]="['/user/view-user']">
+      <div class="mt-2 col-xl-4 col-lg-4 col-md-6 col-sm-12" [routerLink]="['/user/view-user']" *ngIf="role == 'Admin'">
         <div class=" card card-stats card-shadow">
           <div class=" card-body">
             <div class=" row">
@@ -126,7 +126,7 @@
           </div>
         </div>
       </div> 
-      <div class="mt-2 col-xl-4 col-lg-4 col-md-6 col-sm-12" [routerLink]="['/user/view-viewer']">
+      <div class="mt-2 col-xl-4 col-lg-4 col-md-6 col-sm-12" [routerLink]="['/user/view-viewer']" *ngIf="role == 'Admin' || role == 'User'">
         <div class=" card card-stats card-shadow">
           <div class=" card-body">
             <div class=" row">

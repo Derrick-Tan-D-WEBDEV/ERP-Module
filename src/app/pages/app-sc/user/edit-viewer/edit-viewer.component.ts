@@ -24,6 +24,10 @@ export class EditViewerComponent implements OnInit {
   constructor(private route: ActivatedRoute,private _employeeService:EmployeeService,private _standardPartService:StandardPartsService,private _stadardPartTypeItemService:StandardPartTypeItemService,private _chRef: ChangeDetectorRef,private _standardPartCategoryService:StandardPartCategoryService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
+    var auth_role = ["Admin","User"];
+    if(!auth_role.includes(this._authService.getActionRole())){
+      this.router.navigate(['/user/dashboard']);
+    }
     this.id = this.route.snapshot.paramMap.get('id');
     this.getOneViewer(this.id);
     this.editForm =  this.formBuilder.group({

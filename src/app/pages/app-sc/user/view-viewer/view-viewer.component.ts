@@ -27,6 +27,10 @@ export class ViewViewerComponent implements OnInit {
   constructor(private _chRef: ChangeDetectorRef,private _employeeService:EmployeeService,private _standardPartService:StandardPartsService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
+    var auth_role = ["Admin","User"];
+    if(!auth_role.includes(this._authService.getActionRole())){
+      this.router.navigate(['/user/dashboard']);
+    }
     this.actionRole = this._authService.getActionRole();
     console.log(this.actionRole);
     this.dtOptions = {

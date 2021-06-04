@@ -76,8 +76,8 @@
                         formControlName="vendor"
                         (change)="vendorOnChange($event.target.value)"
                     >
-                        <option value="lv" selected>Local Vendor</option>
-                        <option value="av" >Appointed Vendor</option>
+                        <option value="LV" selected>Local Vendor</option>
+                        <option value="AV" >Appointed Vendor</option>
                     </select>
                   </div>
                   <div *ngIf="isSubmitted && f.vendor.errors" class="help-block">

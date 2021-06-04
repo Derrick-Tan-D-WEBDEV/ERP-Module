@@ -23,6 +23,7 @@ export class EditStandardPartComponent implements OnInit {
   sp_category:any;
   sp_typeitem:any;
   sp_uom:any;
+  category_id:any;
   constructor(private route: ActivatedRoute,private _authService: AuthService,private router:Router,private _standardPartCategoryService:StandardPartCategoryService,private _standardPartService:StandardPartsService,private _stadardPartTypeItemService:StandardPartTypeItemService,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
@@ -33,7 +34,8 @@ export class EditStandardPartComponent implements OnInit {
     this.is_sub = this.route.snapshot.paramMap.get('is_sub');
     this.getOneSP(this.id);
     console.log(this.is_sub);
-    if(this._authService.getActionRole() != 'Admin' || this.is_sub == undefined){
+    var auth_role = ["Admin","User"];
+    if(!auth_role.includes(this._authService.getActionRole())){
       this.router.navigate(['/user/dashboard']);
     }
 
@@ -55,6 +57,7 @@ export class EditStandardPartComponent implements OnInit {
   }
 
   typeItemOnChange(val){
+    this.category_id = val;
     if(val){
       this.getAllTypeItem(val);
     }
@@ -64,7 +67,10 @@ export class EditStandardPartComponent implements OnInit {
 
   }
 
-
+  vendorOnChange(){
+    
+  }
+  
   get f() {
     return this.editForm.controls
   }
@@ -209,26 +215,26 @@ export class EditStandardPartComponent implements OnInit {
 
   getOneSP(id){
     this._standardPartService.getSPByID(id).subscribe((response) => {
-      console.log(response);
-      if(response.length == 0){
+      console.log(response.result);
+      if(response.result.length == 0){
         alert("Can't Find Standard Part!");
         this.router.navigateByUrl('/user/dashbaord');
       }else{
-        this.getAllTypeItem(response[0].category_id);
-
+        this.getAllTypeItem(response.result[0].category_id);
+        this.category_id = response.result[0].category_id;
         this.editForm.patchValue({
-          sp_category: response[0].category_id,
-          type_item: response[0].type_item,
-          product_part_number: response[0].product_part_number,
-          greatech_drawing_naming: response[0].greatech_drawing_naming,
-          description: response[0].description,
-          brand: response[0].brand,
-          uom: response[0].uom,
-          remark: response[0].remark,
-          assign_material: response[0].assign_material,
-          assign_weight: response[0].assign_weight,
-          folder_location: response[0].folder_location,
-          vendor: response[0].vendor
+          sp_category: response.result[0].category_id,
+          type_item: response.result[0].type_item,
+          product_part_number: response.result[0].product_part_number,
+          greatech_drawing_naming: response.result[0].greatech_drawing_naming,
+          description: response.result[0].description,
+          brand: response.result[0].brand,
+          uom: response.result[0].uom,
+          remark: response.result[0].remark,
+          assign_material: response.result[0].assign_material,
+          assign_weight: response.result[0].assign_weight,
+          folder_location: response.result[0].folder_location,
+          vendor: response.result[0].vendor
         })
       }
 

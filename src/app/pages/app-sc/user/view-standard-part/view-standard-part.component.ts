@@ -25,6 +25,10 @@ export class ViewStandardPartComponent implements OnInit,AfterViewInit {
   constructor(private _chRef: ChangeDetectorRef,private _standardPartCategoryService:StandardPartCategoryService,private _standardPartService:StandardPartsService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
+    var auth_role = ["Admin","User","Viewer"];
+    if(!auth_role.includes(this._authService.getActionRole())){
+      this.router.navigate(['/user/dashboard']);
+    }
     this.actionRole = this._authService.getActionRole();
     console.log(this.actionRole);
     this.dtOptions = {
@@ -53,6 +57,7 @@ export class ViewStandardPartComponent implements OnInit,AfterViewInit {
   getAllSP(){
     this.tableDataReady = 0;
     this._standardPartService.getAllSP().subscribe((response) => {
+      console.log(response)
       this.standard_parts = response.result;
       this.rerender();
       this.tableDataReady = 1;

@@ -22,6 +22,10 @@ export class ProfileComponent implements OnInit {
   constructor(private formBuilder:FormBuilder,private _employeeService:EmployeeService,private _toastrService:ToastrService, private router:Router, private _authService:AuthService) { }
 
   ngOnInit() {
+    var auth_role = ["Admin","User","Viewer"];
+    if(!auth_role.includes(this._authService.getActionRole())){
+      this.router.navigate(['/user/dashboard']);
+    }
     this.id = this._authService.getUserID();
     this.getOneUser();
     this.updatePasswordForm = this.formBuilder.group({

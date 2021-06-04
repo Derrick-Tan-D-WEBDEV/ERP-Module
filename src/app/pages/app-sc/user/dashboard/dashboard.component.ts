@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
 
   id:any;
   api_key:any;
-
+  role:any;
   constructor(private _authService: AuthService,private router:Router,private apollo: Apollo) {
     
   }
@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.id = this._authService.getUserID();
     this.api_key = this._authService.getAccessToken();
+    this.role = this._authService.getActionRole();
   }
 
   public chartClicked(e: any): void {
