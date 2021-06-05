@@ -9,7 +9,7 @@ import { StandardPartsService } from 'src/app/services/standard-parts.service';
 import { DataTableDirective } from 'angular-datatables';
 import { StandardPartCategoryService } from 'src/app/services/standard-part-category.service';
 import { StandardPartTypeItemService } from 'src/app/services/standard-part-type-item.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-add-standard-part',
   templateUrl: './add-standard-part.component.html',
@@ -25,6 +25,8 @@ export class AddStandardPartComponent implements OnInit {
   constructor(private _standardPartService:StandardPartsService,private _stadardPartTypeItemService:StandardPartTypeItemService,private _chRef: ChangeDetectorRef,private _standardPartCategoryService:StandardPartCategoryService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
+ 
+
     var auth_role = ["Admin","User"];
     if(!auth_role.includes(this._authService.getActionRole())){
       this.router.navigate(['/user/dashboard']);
@@ -80,6 +82,12 @@ export class AddStandardPartComponent implements OnInit {
       this._standardPartService.addSP(values).subscribe((response) => {
         console.log(response);
         if(response.status){
+          Swal.fire('Following Parts Added:', 
+          `<div class="text-left pl-5">
+           <div><b>Part No:</b> Z-MISUMI-SDSJ15-8</div>
+           <div><b>ERP Code:</b> <input value="M0A-00001065" disabled/></div>
+           </div>`,
+          'info');
           this._toastrService.show(
             '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Successfully add standard parts!</span> <span data-notify="message">Nice!</span></div>',
             "",

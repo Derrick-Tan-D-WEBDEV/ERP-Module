@@ -120,6 +120,7 @@ export class EditUserComponent implements OnInit {
           name: response.user.fullname,
           email: response.user.email
         })
+        
       }
 
       
