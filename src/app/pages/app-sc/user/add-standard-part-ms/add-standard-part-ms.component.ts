@@ -9,7 +9,7 @@ import { StandardPartsService } from 'src/app/services/standard-parts.service';
 import { DataTableDirective } from 'angular-datatables';
 import { StandardPartCategoryService } from 'src/app/services/standard-part-category.service';
 import { StandardPartTypeItemService } from 'src/app/services/standard-part-type-item.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-add-standard-part-ms',
   templateUrl: './add-standard-part-ms.component.html',
@@ -107,63 +107,104 @@ export class AddStandardPartMsComponent implements OnInit {
     this.isSubmitted = true;
     values["user_id"] = this._authService.getUserID();
     console.log(values);
+    
     if(this.addForm.invalid){
       return;
     }
     else{
-      this._standardPartService.addSPMS(values).subscribe((response) => {
-        console.log(response);
-        if(response.status){
-          this._toastrService.show(
-            '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Successfully add standard parts!</span> <span data-notify="message">Nice!</span></div>',
-            "",
-            {
-              timeOut: 1000,
-              closeButton: true,
-              enableHtml: true,
-              tapToDismiss: false,
-              titleClass: "alert-title",
-              positionClass: "toast-bottom-center",
-              toastClass:
-                "ngx-toastr alert alert-dismissible alert-success alert-notify"
+      // @ts-ignore
+      Swal.fire({
+        title: 'Do sure you want to continue to add customized part?',
+        icon: 'warning',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: `Confirm`,
+        denyButtonText: `Cancel`,
+      }).then((result) => {
+        console.log(result);
+        if (result.value) {
+          
+          this._standardPartService.addSPMS(values).subscribe((response) => {
+            console.log(response);
+            if(response.status){
+              var full_html = `<div class="text-center">
+              <h4>Main</h4>
+              <div><b>Part No:</b> </div><input style='border:none;text-align:center;' value="`+response.main.part_number+`" onclick="this.select();"  readonly="readonly"/>
+              <div><b>ERP Code:</b> </div><input style='border:none;text-align:center;' value="`+response.main.erp_code+`" onclick="this.select();" readonly="readonly"/>
+              <hr>
+              <h4>Sub</h4>`;
+              var count = 0;
+              for(let sub of response.main.sub){
+                full_html += `<small style="font-size:12px">`+"Sub #"+count+`</small>`;
+                full_html += `
+                <div><b>Part No:</b> </div><input style='border:none;text-align:center;' value="`+sub.part_number+`" onclick="this.select();"  readonly="readonly"/>
+                <div><b>ERP Code:</b> </div><input style='border:none;text-align:center;' value="`+sub.erp_code+`" onclick="this.select();" readonly="readonly"/>`;
+                count ++;
+              }
+              full_html += `</div>`;
+              console.log(full_html);
+              // @ts-ignore
+              Swal.fire({
+                title: "Following Customized Parts Added:",
+                html: full_html,
+                type: "info"
+              });
+              this._toastrService.show(
+                '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Successfully add standard parts!</span> <span data-notify="message">Nice!</span></div>',
+                "",
+                {
+                  timeOut: 1000,
+                  closeButton: true,
+                  enableHtml: true,
+                  tapToDismiss: false,
+                  titleClass: "alert-title",
+                  positionClass: "toast-bottom-center",
+                  toastClass:
+                    "ngx-toastr alert alert-dismissible alert-success alert-notify"
+                }
+              );      
+              this.addForm.reset();    
+              this.isSubmitted = false;
             }
-          );      
-          this.addForm.reset();    
-          this.isSubmitted = false;
+            else{
+              this._toastrService.show(
+                '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">'+response.message+'</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
+                "",
+                {
+                  timeOut: 1000,
+                  closeButton: true,
+                  enableHtml: true,
+                  tapToDismiss: false,
+                  titleClass: "alert-title",
+                  positionClass: "toast-bottom-center",
+                  toastClass:
+                    "ngx-toastr alert alert-dismissible alert-danger alert-notify"
+                }
+              );
+            }
+          },
+          error => {
+            this._toastrService.show(
+              '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to add standard parts!</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
+              "",
+              {
+                timeOut: 1000,
+                closeButton: true,
+                enableHtml: true,
+                tapToDismiss: false,
+                titleClass: "alert-title",
+                positionClass: "toast-bottom-center",
+                toastClass:
+                  "ngx-toastr alert alert-dismissible alert-danger alert-notify"
+              }
+            );
+          });
         }
         else{
-          this._toastrService.show(
-            '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">'+response.message+'</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
-            "",
-            {
-              timeOut: 1000,
-              closeButton: true,
-              enableHtml: true,
-              tapToDismiss: false,
-              titleClass: "alert-title",
-              positionClass: "toast-bottom-center",
-              toastClass:
-                "ngx-toastr alert alert-dismissible alert-danger alert-notify"
-            }
-          );
+
         }
-      },
-      error => {
-        this._toastrService.show(
-          '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to add standard parts!</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
-          "",
-          {
-            timeOut: 1000,
-            closeButton: true,
-            enableHtml: true,
-            tapToDismiss: false,
-            titleClass: "alert-title",
-            positionClass: "toast-bottom-center",
-            toastClass:
-              "ngx-toastr alert alert-dismissible alert-danger alert-notify"
-          }
-        );
       });
+
     }
 
   }

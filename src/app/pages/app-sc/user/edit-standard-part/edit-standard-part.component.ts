@@ -7,7 +7,7 @@ import { StandardPartsService } from 'src/app/services/standard-parts.service';
 import { StandardPartTypeItemService } from 'src/app/services/standard-part-type-item.service';
 import { StandardPartCategoryService } from 'src/app/services/standard-part-category.service';
 import { take } from 'rxjs/operators';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-edit-standard-part',
   templateUrl: './edit-standard-part.component.html',
@@ -87,59 +87,89 @@ export class EditStandardPartComponent implements OnInit {
       return;
     }
     else{
-      this._standardPartService.editSP(values).subscribe((response) => {
-        console.log(response);
-        if(response.status){
-          this._toastrService.show(
-            '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Successfully update standard parts!</span> <span data-notify="message">Nice!</span></div>',
-            "",
-            {
-              timeOut: 1000,
-              closeButton: true,
-              enableHtml: true,
-              tapToDismiss: false,
-              titleClass: "alert-title",
-              positionClass: "toast-bottom-center",
-              toastClass:
-                "ngx-toastr alert alert-dismissible alert-success alert-notify"
-            }
-          ).onHidden.pipe(take(1)).subscribe(()=>this.router.navigate(['user/dashboard']));      
 
-          this.isSubmitted = false;
-        }
-        else{
-          this._toastrService.show(
-            '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">'+response.message+'</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
-            "",
-            {
-              timeOut: 1000,
-              closeButton: true,
-              enableHtml: true,
-              tapToDismiss: false,
-              titleClass: "alert-title",
-              positionClass: "toast-bottom-center",
-              toastClass:
-                "ngx-toastr alert alert-dismissible alert-danger alert-notify"
+      // @ts-ignore
+      Swal.fire({
+        title: 'Do sure you want to continue to edit this part?',
+        html: `<div class="text-center">
+        <div><b>Part No:</b> `+values["product_part_number"]+`</div>
+        </div>`,
+        icon: 'warning',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: `Confirm`,
+        denyButtonText: `Cancel`,
+      }).then((result) => {
+        console.log(result);
+        if (result.value) {
+          this._standardPartService.editSP(values).subscribe((response) => {
+            console.log(response);
+            if(response.status){
+              // @ts-ignore
+              Swal.fire({
+                title: "Following Parts Edited:",
+                html: `<div class="text-center">
+                <div><b>Part No:</b> </div><input style='border:none;text-align:center;' value="`+response.main.part_number+`" onclick="this.select();"  readonly="readonly"/>
+                <div><b>ERP Code:</b> </div><input style='border:none;text-align:center;' value="`+response.main.erp_code+`" onclick="this.select();" readonly="readonly"/>
+                </div>`,
+                type: "info"
+              });
+              this._toastrService.show(
+                '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Successfully update standard parts!</span> <span data-notify="message">Nice!</span></div>',
+                "",
+                {
+                  timeOut: 1000,
+                  closeButton: true,
+                  enableHtml: true,
+                  tapToDismiss: false,
+                  titleClass: "alert-title",
+                  positionClass: "toast-bottom-center",
+                  toastClass:
+                    "ngx-toastr alert alert-dismissible alert-success alert-notify"
+                }
+              ).onHidden.pipe(take(1)).subscribe(()=>this.router.navigate(['user/dashboard']));      
+    
+              this.isSubmitted = false;
             }
-          );
+            else{
+              this._toastrService.show(
+                '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">'+response.message+'</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
+                "",
+                {
+                  timeOut: 1000,
+                  closeButton: true,
+                  enableHtml: true,
+                  tapToDismiss: false,
+                  titleClass: "alert-title",
+                  positionClass: "toast-bottom-center",
+                  toastClass:
+                    "ngx-toastr alert alert-dismissible alert-danger alert-notify"
+                }
+              );
+            }
+          },
+          error => {
+            this._toastrService.show(
+              '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to update standard parts!</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
+              "",
+              {
+                timeOut: 1000,
+                closeButton: true,
+                enableHtml: true,
+                tapToDismiss: false,
+                titleClass: "alert-title",
+                positionClass: "toast-bottom-center",
+                toastClass:
+                  "ngx-toastr alert alert-dismissible alert-danger alert-notify"
+              }
+            );
+          });
+        } else{
+          Swal.fire('Action Canceled!', '', 'info')
         }
-      },
-      error => {
-        this._toastrService.show(
-          '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to update standard parts!</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
-          "",
-          {
-            timeOut: 1000,
-            closeButton: true,
-            enableHtml: true,
-            tapToDismiss: false,
-            titleClass: "alert-title",
-            positionClass: "toast-bottom-center",
-            toastClass:
-              "ngx-toastr alert alert-dismissible alert-danger alert-notify"
-          }
-        );
+
       });
+
     }
 
   }

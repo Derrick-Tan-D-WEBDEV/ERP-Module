@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { StandardPartsService } from 'src/app/services/standard-parts.service';
 import { DataTableDirective } from 'angular-datatables';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-view-own-standard-part',
   templateUrl: './view-own-standard-part.component.html',
@@ -55,41 +56,57 @@ export class ViewOwnStandardPartComponent implements OnInit {
 
 
   deleteSP(id){
-    this._standardPartService.deleteSP(id).subscribe((response) => {
-      console.log(response);
-      // var val = (<HTMLInputElement>document.getElementById("category_id")).value;
-      this.getAllSPByUserID();
-      this._toastrService.show(
-        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Successfully delete standard part!</span> <span data-notify="message">Nice!</span></div>',
-        "",
-        {
-          timeOut: 1000,
-          closeButton: true,
-          enableHtml: true,
-          tapToDismiss: false,
-          titleClass: "alert-title",
-          positionClass: "toast-bottom-center",
-          toastClass:
-            "ngx-toastr alert alert-dismissible alert-success alert-notify"
-        }
-      ); 
-    },
-    error => {
-      this._toastrService.show(
-        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to delete!</span> <span data-notify="message">Please contact the support, if needed!</span></div>',
-        "",
-        {
-          timeOut: 1000,
-          closeButton: true,
-          enableHtml: true,
-          tapToDismiss: false,
-          titleClass: "alert-title",
-          positionClass: "toast-bottom-center",
-          toastClass:
-            "ngx-toastr alert alert-dismissible alert-danger alert-notify"
-        }
-      );
+    // @ts-ignore
+    Swal.fire({
+      title: 'Do sure you want to continue to delete this part?',
+      icon: 'warning',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: `Confirm`,
+      denyButtonText: `Cancel`,
+    }).then((result) => {
+      if(result.value){
+        this._standardPartService.deleteSP(id).subscribe((response) => {
+          console.log(response);
+          // var val = (<HTMLInputElement>document.getElementById("category_id")).value;
+          this.getAllSPByUserID();
+          this._toastrService.show(
+            '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Successfully delete standard part!</span> <span data-notify="message">Nice!</span></div>',
+            "",
+            {
+              timeOut: 1000,
+              closeButton: true,
+              enableHtml: true,
+              tapToDismiss: false,
+              titleClass: "alert-title",
+              positionClass: "toast-bottom-center",
+              toastClass:
+                "ngx-toastr alert alert-dismissible alert-success alert-notify"
+            }
+          ); 
+        },
+        error => {
+          this._toastrService.show(
+            '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to delete!</span> <span data-notify="message">Please contact the support, if needed!</span></div>',
+            "",
+            {
+              timeOut: 1000,
+              closeButton: true,
+              enableHtml: true,
+              tapToDismiss: false,
+              titleClass: "alert-title",
+              positionClass: "toast-bottom-center",
+              toastClass:
+                "ngx-toastr alert alert-dismissible alert-danger alert-notify"
+            }
+          );
+        });
+      } else{
+        Swal.fire('Action Canceled!', '', 'info')
+      }
+
     });
+
   }
 
 

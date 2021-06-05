@@ -42,7 +42,7 @@ import { ProfileComponent } from 'src/app/pages/app-sc/user/profile/profile.comp
     ChartsModule,
     DragDropModule,
     MonacoEditorModule.forRoot(),
-    DataTablesModule
+    DataTablesModule,
   ],
   declarations: [
     DashboardComponent,

@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { StandardPartsService } from 'src/app/services/standard-parts.service';
 import { DataTableDirective } from 'angular-datatables';
 import { StandardPartCategoryService } from 'src/app/services/standard-part-category.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-view-standard-part',
   templateUrl: './view-standard-part.component.html',
@@ -141,46 +142,62 @@ export class ViewStandardPartComponent implements OnInit,AfterViewInit {
 
 
   deleteSP(id){
-    this._standardPartService.deleteSP(id).subscribe((response) => {
-      console.log(response);
-      var val = (<HTMLInputElement>document.getElementById("category_id")).value;
-      if(val){
-        this.getSPByCatID(val);
+    // @ts-ignore
+    Swal.fire({
+      title: 'Do sure you want to continue to delete this part?',
+      icon: 'warning',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: `Confirm`,
+      denyButtonText: `Cancel`,
+    }).then((result) => {
+      if(result.value){
+        this._standardPartService.deleteSP(id).subscribe((response) => {
+          console.log(response);
+          var val = (<HTMLInputElement>document.getElementById("category_id")).value;
+          if(val){
+            this.getSPByCatID(val);
+          }
+          else{
+            this.getAllSP();
+          }
+          this._toastrService.show(
+            '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Successfully delete standard part!</span> <span data-notify="message">Nice!</span></div>',
+            "",
+            {
+              timeOut: 1000,
+              closeButton: true,
+              enableHtml: true,
+              tapToDismiss: false,
+              titleClass: "alert-title",
+              positionClass: "toast-bottom-center",
+              toastClass:
+                "ngx-toastr alert alert-dismissible alert-success alert-notify"
+            }
+          ); 
+        },
+        error => {
+          this._toastrService.show(
+            '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to delete!</span> <span data-notify="message">Please contact the support, if needed!</span></div>',
+            "",
+            {
+              timeOut: 1000,
+              closeButton: true,
+              enableHtml: true,
+              tapToDismiss: false,
+              titleClass: "alert-title",
+              positionClass: "toast-bottom-center",
+              toastClass:
+                "ngx-toastr alert alert-dismissible alert-danger alert-notify"
+            }
+          );
+        });
       }
       else{
-        this.getAllSP();
+        Swal.fire('Action Canceled!', '', 'info');
       }
-      this._toastrService.show(
-        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Successfully delete standard part!</span> <span data-notify="message">Nice!</span></div>',
-        "",
-        {
-          timeOut: 1000,
-          closeButton: true,
-          enableHtml: true,
-          tapToDismiss: false,
-          titleClass: "alert-title",
-          positionClass: "toast-bottom-center",
-          toastClass:
-            "ngx-toastr alert alert-dismissible alert-success alert-notify"
-        }
-      ); 
-    },
-    error => {
-      this._toastrService.show(
-        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to delete!</span> <span data-notify="message">Please contact the support, if needed!</span></div>',
-        "",
-        {
-          timeOut: 1000,
-          closeButton: true,
-          enableHtml: true,
-          tapToDismiss: false,
-          titleClass: "alert-title",
-          positionClass: "toast-bottom-center",
-          toastClass:
-            "ngx-toastr alert alert-dismissible alert-danger alert-notify"
-        }
-      );
     });
+
   }
 
 

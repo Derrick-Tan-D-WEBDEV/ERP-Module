@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -9,7 +10,9 @@ import { StandardPartsService } from 'src/app/services/standard-parts.service';
 import { DataTableDirective } from 'angular-datatables';
 import { StandardPartCategoryService } from 'src/app/services/standard-part-category.service';
 import { StandardPartTypeItemService } from 'src/app/services/standard-part-type-item.service';
-import Swal from 'sweetalert2';
+import { HttpResponseBase } from '@angular/common/http';
+
+
 @Component({
   selector: 'app-add-standard-part',
   templateUrl: './add-standard-part.component.html',
@@ -25,7 +28,7 @@ export class AddStandardPartComponent implements OnInit {
   constructor(private _standardPartService:StandardPartsService,private _stadardPartTypeItemService:StandardPartTypeItemService,private _chRef: ChangeDetectorRef,private _standardPartCategoryService:StandardPartCategoryService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
- 
+
 
     var auth_role = ["Admin","User"];
     if(!auth_role.includes(this._authService.getActionRole())){
@@ -79,68 +82,91 @@ export class AddStandardPartComponent implements OnInit {
       return;
     }
     else{
-      this._standardPartService.addSP(values).subscribe((response) => {
-        console.log(response);
-        if(response.status){
-          Swal.fire('Following Parts Added:', 
-          `<div class="text-left pl-5">
-           <div><b>Part No:</b> Z-MISUMI-SDSJ15-8</div>
-           <div><b>ERP Code:</b> <input value="M0A-00001065" disabled/></div>
-           </div>`,
-          'info');
-          this._toastrService.show(
-            '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Successfully add standard parts!</span> <span data-notify="message">Nice!</span></div>',
-            "",
-            {
-              timeOut: 1000,
-              closeButton: true,
-              enableHtml: true,
-              tapToDismiss: false,
-              titleClass: "alert-title",
-              positionClass: "toast-bottom-center",
-              toastClass:
-                "ngx-toastr alert alert-dismissible alert-success alert-notify"
+      // @ts-ignore
+      Swal.fire({
+        title: 'Do sure you want to continue to add this part?',
+        html: `<div class="text-center">
+        <div><b>Part No:</b> `+values["product_part_number"]+`</div>
+        </div>`,
+        icon: 'warning',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: `Confirm`,
+        denyButtonText: `Cancel`,
+      }).then((result) => {
+        console.log(result);
+        if (result.value) {
+          this._standardPartService.addSP(values).subscribe((response) => {
+            console.log(response);
+            if(response.status){
+
+              // @ts-ignore
+              Swal.fire({
+                title: "Following Parts Added:",
+                html: `<div class="text-center">
+                <div><b>Part No:</b> </div><input style='border:none;text-align:center;' value="`+response.main.part_number+`" onclick="this.select();"  readonly="readonly"/>
+                <div><b>ERP Code:</b> </div><input style='border:none;text-align:center;' value="`+response.main.erp_code+`" onclick="this.select();" readonly="readonly"/>
+                </div>`,
+                type: "info"
+              });
+              this._toastrService.show(
+                '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Successfully add standard parts!</span> <span data-notify="message">Nice!</span></div>',
+                "",
+                {
+                  timeOut: 1000,
+                  closeButton: true,
+                  enableHtml: true,
+                  tapToDismiss: false,
+                  titleClass: "alert-title",
+                  positionClass: "toast-bottom-center",
+                  toastClass:
+                    "ngx-toastr alert alert-dismissible alert-success alert-notify"
+                }
+              );      
+              this.addForm.reset();    
+              this.isSubmitted = false;
+              this.addForm.patchValue({
+                vendor: 'LV'
+              })
             }
-          );      
-          this.addForm.reset();    
-          this.isSubmitted = false;
-          this.addForm.patchValue({
-            vendor: 'LV'
-          })
-        }
-        else{
-          this._toastrService.show(
-            '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">'+response.message+'</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
-            "",
-            {
-              timeOut: 1000,
-              closeButton: true,
-              enableHtml: true,
-              tapToDismiss: false,
-              titleClass: "alert-title",
-              positionClass: "toast-bottom-center",
-              toastClass:
-                "ngx-toastr alert alert-dismissible alert-danger alert-notify"
+            else{
+              this._toastrService.show(
+                '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">'+response.message+'</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
+                "",
+                {
+                  timeOut: 1000,
+                  closeButton: true,
+                  enableHtml: true,
+                  tapToDismiss: false,
+                  titleClass: "alert-title",
+                  positionClass: "toast-bottom-center",
+                  toastClass:
+                    "ngx-toastr alert alert-dismissible alert-danger alert-notify"
+                }
+              );
             }
-          );
+          },
+          error => {
+            this._toastrService.show(
+              '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to add standard parts!</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
+              "",
+              {
+                timeOut: 1000,
+                closeButton: true,
+                enableHtml: true,
+                tapToDismiss: false,
+                titleClass: "alert-title",
+                positionClass: "toast-bottom-center",
+                toastClass:
+                  "ngx-toastr alert alert-dismissible alert-danger alert-notify"
+              }
+            );
+          });
+        } else{
+          Swal.fire('Action Canceled!', '', 'info')
         }
-      },
-      error => {
-        this._toastrService.show(
-          '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to add standard parts!</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
-          "",
-          {
-            timeOut: 1000,
-            closeButton: true,
-            enableHtml: true,
-            tapToDismiss: false,
-            titleClass: "alert-title",
-            positionClass: "toast-bottom-center",
-            toastClass:
-              "ngx-toastr alert alert-dismissible alert-danger alert-notify"
-          }
-        );
-      });
+      })
+
     }
 
   }
@@ -212,6 +238,20 @@ export class AddStandardPartComponent implements OnInit {
         }
       );
     });
+  }
+
+  copyMessage(val: string){
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = val;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
   }
 
 }
