@@ -98,6 +98,7 @@
                       placeholder="Product Part Number"
                       formControlName="product_part_number"
                       type="text"
+                      (change)="productBrandHandling(addForm.value)"
                     />
                   </div>
                   <div *ngIf="isSubmitted && f.product_part_number.errors" class="help-block">
@@ -156,6 +157,7 @@
                       placeholder="Brand"
                       formControlName="brand"
                       type="text"
+                      (change)="productBrandHandling(addForm.value)"
                     />
                   </div>
                   <div *ngIf="isSubmitted && f.brand.errors" class="help-block">
@@ -312,10 +314,10 @@
                               <option value="Provide Services">Provide Services</option>
                             </select>
                           </td>
-                          <td><input type="text" formControlName="product_part_number" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.product_part_number.errors }"></td>
+                          <td><input type="text" formControlName="product_part_number" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.product_part_number.errors }" (change)="productBrandHandling(sub.value)"></td>
                           <td><input type="text" formControlName="greatech_drawing_naming" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.greatech_drawing_naming.errors }"></td>
                           <td><input type="text" formControlName="description" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.description.errors }"></td>
-                          <td><input type="text" formControlName="brand" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.brand.errors }"></td>
+                          <td><input type="text" formControlName="brand" [ngClass]="{ 'sub-error': isSubmitted && sub.controls.brand.errors }" (change)="productBrandHandling(sub.value)"></td>
                           <td>
                             <select
                               placeholder="Uom"

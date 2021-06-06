@@ -13,6 +13,8 @@ import { AddStandardPartMsComponent } from 'src/app/pages/app-sc/user/add-standa
 import { ProfileComponent } from 'src/app/pages/app-sc/user/profile/profile.component';
 import { ViewUserComponent } from 'src/app/pages/app-sc/user/view-user/view-user.component';
 import { ViewViewerComponent } from 'src/app/pages/app-sc/user/view-viewer/view-viewer.component';
+import { ViewOnlyRecoveryComponent } from 'src/app/pages/app-sc/user/view-only-recovery/view-only-recovery.component';
+import { ViewRecoveryComponent } from 'src/app/pages/app-sc/user/view-recovery/view-recovery.component';
 
 export const UserLayoutRoutes: Routes = [
   {
@@ -93,6 +95,18 @@ export const UserLayoutRoutes: Routes = [
       {
         path: "view-viewer",
         component: ViewViewerComponent,
+        canActivate:[AuthGuard],
+        data: {expectedRole:'User'}
+      },
+      {
+        path: "view-only-recovery",
+        component: ViewOnlyRecoveryComponent,
+        canActivate:[AuthGuard],
+        data: {expectedRole:'User'}
+      },
+      {
+        path: "view-recovery",
+        component: ViewRecoveryComponent,
         canActivate:[AuthGuard],
         data: {expectedRole:'User'}
       }

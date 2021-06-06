@@ -27,6 +27,8 @@ import { DataTablesModule } from "angular-datatables";
 import { ViewOwnStandardPartComponent } from 'src/app/pages/app-sc/user/view-own-standard-part/view-own-standard-part.component';
 import { AddStandardPartMsComponent } from 'src/app/pages/app-sc/user/add-standard-part-ms/add-standard-part-ms.component';
 import { ProfileComponent } from 'src/app/pages/app-sc/user/profile/profile.component';
+import { ViewOnlyRecoveryComponent } from 'src/app/pages/app-sc/user/view-only-recovery/view-only-recovery.component';
+import { ViewRecoveryComponent } from 'src/app/pages/app-sc/user/view-recovery/view-recovery.component';
 
 @NgModule({
   imports: [
@@ -57,7 +59,9 @@ import { ProfileComponent } from 'src/app/pages/app-sc/user/profile/profile.comp
     EditUserComponent,
     EditViewerComponent,
     ViewUserComponent,
-    ViewViewerComponent
+    ViewViewerComponent,
+    ViewOnlyRecoveryComponent,
+    ViewRecoveryComponent
   ]
 })
 export class UserLayoutModule {}

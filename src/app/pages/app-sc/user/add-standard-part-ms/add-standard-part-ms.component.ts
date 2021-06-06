@@ -24,6 +24,7 @@ export class AddStandardPartMsComponent implements OnInit {
   
   sp_typeitem_index:any =[];
   temp_typeitem:any = {};
+  form_duplication_block:any = false;
   constructor(private _standardPartService:StandardPartsService,private _stadardPartTypeItemService:StandardPartTypeItemService,private _chRef: ChangeDetectorRef,private _standardPartCategoryService:StandardPartCategoryService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
@@ -50,6 +51,7 @@ export class AddStandardPartMsComponent implements OnInit {
     this.addSub();
   }
   
+
   typeItemOnChange(val){
     // if(val){
     //   this.getAllTypeItem(val);
@@ -68,6 +70,95 @@ export class AddStandardPartMsComponent implements OnInit {
     //   this.temp_typeitem = {};
     //   console.log(this.sp_typeitem_index);
     // }
+  }
+
+  productBrandHandling(values){
+    var all_ms_data = [];
+    all_ms_data.push(this.addForm.value);
+    for (let sub of this.f_sub.controls) {
+      all_ms_data.push(sub.value);
+    }
+    console.log(all_ms_data);
+    var unique_list = [];
+    var duplication = false;
+    for (var i = 0, l = all_ms_data.length; i < l; i++) {
+      var unique = true;
+      for (var j = 0, k = unique_list.length; j < k; j++) {
+          if ((all_ms_data[i].product_part_number === unique_list[j].product_part_number) && (all_ms_data[i].brand === unique_list[j].brand)) {
+              unique = false;
+          }
+      }
+      if (unique) {
+        unique_list.push(all_ms_data[i]);
+        this.form_duplication_block = false;
+      }
+      else{
+        console.log("got duplicate")
+        this.form_duplication_block = true;
+        duplication = true;
+        break;
+      }
+    }
+    console.log(duplication)
+    if(duplication){
+      this._toastrService.show(
+        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Duplication of Part Number and Brand occur in the form!</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
+        "",
+        {
+          timeOut: 3000,
+          closeButton: true,
+          enableHtml: true,
+          tapToDismiss: false,
+          titleClass: "alert-title",
+          positionClass: "toast-bottom-center",
+          toastClass:
+            "ngx-toastr alert alert-dismissible alert-danger alert-notify"
+        }
+      );
+    }
+    console.log(unique_list);
+    if(values["product_part_number"] != "" && values["brand"] != ""){
+      this._standardPartService.checkPPNBrand(values["product_part_number"],values["brand"]).subscribe((response) => {
+        if(response.status){
+          this._toastrService.show(
+            '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">'+response.message+'</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
+            "",
+            {
+              timeOut: 3000,
+              closeButton: true,
+              enableHtml: true,
+              tapToDismiss: false,
+              titleClass: "alert-title",
+              positionClass: "toast-bottom-center",
+              toastClass:
+                "ngx-toastr alert alert-dismissible alert-danger alert-notify"
+            }
+          );
+        }
+        else{
+
+        }
+
+      },
+      error => {
+        this._toastrService.show(
+          '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to check!</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
+          "",
+          {
+            timeOut: 1000,
+            closeButton: true,
+            enableHtml: true,
+            tapToDismiss: false,
+            titleClass: "alert-title",
+            positionClass: "toast-bottom-center",
+            toastClass:
+              "ngx-toastr alert alert-dismissible alert-danger alert-notify"
+          }
+        );
+      });
+    }else{
+      console.log("Please complete both for checking!");
+    }
   }
 
   get f_sub() :FormArray {
@@ -108,13 +199,29 @@ export class AddStandardPartMsComponent implements OnInit {
     values["user_id"] = this._authService.getUserID();
     console.log(values);
     
-    if(this.addForm.invalid){
+    if(this.addForm.invalid || this.form_duplication_block == true){
+      if(this.form_duplication_block == true){
+        this._toastrService.show(
+          '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Duplication of Part Number and Brand occur in the form!</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
+          "",
+          {
+            timeOut: 3000,
+            closeButton: true,
+            enableHtml: true,
+            tapToDismiss: false,
+            titleClass: "alert-title",
+            positionClass: "toast-bottom-center",
+            toastClass:
+              "ngx-toastr alert alert-dismissible alert-danger alert-notify"
+          }
+        );
+      }
       return;
     }
     else{
       // @ts-ignore
       Swal.fire({
-        title: 'Do sure you want to continue to add customized part?',
+        title: 'Do you sure want to continue to add customized part?',
         icon: 'warning',
         showDenyButton: true,
         showCancelButton: true,
@@ -135,7 +242,7 @@ export class AddStandardPartMsComponent implements OnInit {
               <h4>Sub</h4>`;
               var count = 0;
               for(let sub of response.main.sub){
-                full_html += `<small style="font-size:12px">`+"Sub #"+count+`</small>`;
+                full_html += `<h5 class="text-muted" style="font-size:12px;">`+"Sub #"+count+`</h5>`;
                 full_html += `
                 <div><b>Part No:</b> </div><input style='border:none;text-align:center;' value="`+sub.part_number+`" onclick="this.select();"  readonly="readonly"/>
                 <div><b>ERP Code:</b> </div><input style='border:none;text-align:center;' value="`+sub.erp_code+`" onclick="this.select();" readonly="readonly"/>`;
@@ -165,6 +272,16 @@ export class AddStandardPartMsComponent implements OnInit {
               );      
               this.addForm.reset();    
               this.isSubmitted = false;
+              this.addForm.patchValue({
+                sp_category: 'Customize Standard Parts',
+                type_item: '',
+                uom: '',
+                assign_material: '',
+                assign_weight: ''
+              })
+              while (this.f_sub.length !== 0) {
+                this.f_sub.removeAt(0);
+              }
             }
             else{
               this._toastrService.show(
@@ -238,6 +355,7 @@ export class AddStandardPartMsComponent implements OnInit {
       else
         this.temp_typeitem = response.result;
       console.log(this.temp_typeitem)
+      
     },
     error => {
       this._toastrService.show(

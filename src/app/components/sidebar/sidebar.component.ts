@@ -49,7 +49,8 @@ export const ROUTES_ADMIN: RouteInfo[] = [
       { path: "view-standard-part", title: "Standard Part", type: "link" },
       { path: "view-own-standard-part", title: "Own Standard Part", type: "link" },
       { path: "view-user", title: "User", type: "link" },
-      { path: "view-viewer", title: "Viewer", type: "link" }
+      { path: "view-viewer", title: "Viewer", type: "link" },
+      { path: "view-recovery", title: "Deleted Data", type: "link" }
     ]
   },
   {
@@ -91,7 +92,8 @@ export const ROUTES_USER: RouteInfo[] = [
     children: [
       { path: "view-standard-part", title: "Standard Part", type: "link" },
       { path: "view-own-standard-part", title: "Own Standard Part", type: "link" },
-      { path: "view-viewer", title: "Viewer", type: "link" }
+      { path: "view-viewer", title: "Viewer", type: "link" },
+      { path: "view-only-recovery", title: "Deleted Data", type: "link" }
     ]
   },
   {
@@ -130,7 +132,8 @@ export const ROUTES_VIEWER: RouteInfo[] = [
     collapse: "owned-company",
     isCollapsed: true,
     children: [
-      { path: "view-standard-part", title: "Standard Part", type: "link" }
+      { path: "view-standard-part", title: "Standard Part", type: "link" },
+      { path: "view-only-recovery", title: "Deleted Data", type: "link" }
     ]
   },
   {

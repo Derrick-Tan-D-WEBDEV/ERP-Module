@@ -90,7 +90,7 @@ export class EditStandardPartComponent implements OnInit {
 
       // @ts-ignore
       Swal.fire({
-        title: 'Do sure you want to continue to edit this part?',
+        title: 'Do you sure want to continue to edit this part?',
         html: `<div class="text-center">
         <div><b>Part No:</b> `+values["product_part_number"]+`</div>
         </div>`,

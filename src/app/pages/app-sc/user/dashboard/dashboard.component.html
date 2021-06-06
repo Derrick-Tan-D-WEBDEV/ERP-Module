@@ -138,6 +138,30 @@
           </div>
         </div>
       </div>
+      <div class="mt-2 col-xl-4 col-lg-4 col-md-6 col-sm-12" [routerLink]="['/user/view-only-recovery']" *ngIf="role == 'Viewer' || role == 'User'">
+        <div class=" card card-stats card-shadow">
+          <div class=" card-body">
+            <div class=" row">
+              <div class="col-12 text-center">
+                <i class="far fa-eye fa-5x"></i>
+                <h3 class="text-muted">View Deleted Data</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+      <div class="mt-2 col-xl-4 col-lg-4 col-md-6 col-sm-12" [routerLink]="['/user/view-recovery']" *ngIf="role == 'Admin'">
+        <div class=" card card-stats card-shadow">
+          <div class=" card-body">
+            <div class=" row">
+              <div class="col-12 text-center">
+                <i class="far fa-eye fa-5x"></i>
+                <h3 class="text-muted">View Deleted Data</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
     </div> 
   </div>
 

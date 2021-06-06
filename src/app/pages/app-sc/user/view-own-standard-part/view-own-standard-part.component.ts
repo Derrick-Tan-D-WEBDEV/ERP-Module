@@ -58,7 +58,7 @@ export class ViewOwnStandardPartComponent implements OnInit {
   deleteSP(id){
     // @ts-ignore
     Swal.fire({
-      title: 'Do sure you want to continue to delete this part?',
+      title: 'Do you sure want to continue to delete this part?',
       icon: 'warning',
       showDenyButton: true,
       showCancelButton: true,

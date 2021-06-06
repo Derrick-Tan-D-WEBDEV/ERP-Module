@@ -28,8 +28,6 @@ export class AddStandardPartComponent implements OnInit {
   constructor(private _standardPartService:StandardPartsService,private _stadardPartTypeItemService:StandardPartTypeItemService,private _chRef: ChangeDetectorRef,private _standardPartCategoryService:StandardPartCategoryService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
-
-
     var auth_role = ["Admin","User"];
     if(!auth_role.includes(this._authService.getActionRole())){
       this.router.navigate(['/user/dashboard']);
@@ -71,6 +69,48 @@ export class AddStandardPartComponent implements OnInit {
     return this.addForm.controls
   }
 
+  productBrandHandling(values){
+    if(values["product_part_number"] != "" && values["brand"] != ""){
+      this._standardPartService.checkPPNBrand(values["product_part_number"],values["brand"]).subscribe((response) => {
+        if(response.status){
+          this._toastrService.show(
+            '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">'+response.message+'</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
+            "",
+            {
+              timeOut: 3000,
+              closeButton: true,
+              enableHtml: true,
+              tapToDismiss: false,
+              titleClass: "alert-title",
+              positionClass: "toast-bottom-center",
+              toastClass:
+                "ngx-toastr alert alert-dismissible alert-danger alert-notify"
+            }
+          );
+        }
+
+      },
+      error => {
+        this._toastrService.show(
+          '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to check!</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
+          "",
+          {
+            timeOut: 1000,
+            closeButton: true,
+            enableHtml: true,
+            tapToDismiss: false,
+            titleClass: "alert-title",
+            positionClass: "toast-bottom-center",
+            toastClass:
+              "ngx-toastr alert alert-dismissible alert-danger alert-notify"
+          }
+        );
+      });
+    }else{
+      console.log("Please complete both for checking!");
+    }
+  }
+
   add(values){
     this.isSubmitted = true;
     values["user_id"] = this._authService.getUserID();
@@ -84,7 +124,7 @@ export class AddStandardPartComponent implements OnInit {
     else{
       // @ts-ignore
       Swal.fire({
-        title: 'Do sure you want to continue to add this part?',
+        title: 'Do you sure want to continue to add this part?',
         html: `<div class="text-center">
         <div><b>Part No:</b> `+values["product_part_number"]+`</div>
         </div>`,
@@ -126,6 +166,11 @@ export class AddStandardPartComponent implements OnInit {
               this.addForm.reset();    
               this.isSubmitted = false;
               this.addForm.patchValue({
+                sp_category: '',
+                type_item: '',
+                uom: '',
+                assign_material: '',
+                assign_weight: '',
                 vendor: 'LV'
               })
             }

@@ -31,8 +31,24 @@ export class StandardPartsService {
 
   base_path = 'http://192.168.0.24:4000/SP/';
 
+  checkPPNBrand(product_part_number, brand):Observable<any>{
+    return this.httpClient.post<any>(this.base_path+'checkPPNBrand',{product_part_number, brand}).pipe(
+      map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
+
   getAllSP():Observable<any>{
     return this.httpClient.get<any>(this.base_path+'getAllSP').pipe(
+      map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
+
+  getAllRecovery():Observable<any>{
+    return this.httpClient.get<any>(this.base_path+'getAllDeleteSP').pipe(
       map((res) => {
         return res;
     }),
@@ -107,6 +123,14 @@ export class StandardPartsService {
 
   addSPMS(data):Observable<any>{
     return this.httpClient.post<any>(this.base_path+'createSPMS',{data}).pipe(
+      map((res) => {
+        return res;
+    }),
+    catchError(this.handleError));
+  }
+
+  recover(id):Observable<any>{
+    return this.httpClient.post<any>(this.base_path+'recoverDeleteSP',{id}).pipe(
       map((res) => {
         return res;
     }),
