@@ -15,13 +15,9 @@ import Swal from 'sweetalert2';
 })
 export class ViewOwnStandardPartComponent implements OnInit {
   standard_parts:any; 
-  @ViewChild(DataTableDirective) dtElement: DataTableDirective;
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject();
-
-  tableDataReady:any = 0;
 
   id:any;
+  loading: boolean = true;
   constructor(private _chRef: ChangeDetectorRef,private _standardPartService:StandardPartsService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
@@ -32,16 +28,8 @@ export class ViewOwnStandardPartComponent implements OnInit {
     this.id = this._authService.getUserID();
     console.log(this.id);
     this.getAllSPByUserID();
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      scrollX: true
-    };
-    this.tableDataReady = 1;
   }
 
-  ngAfterViewInit() {
-    this.dtTrigger.next();
-  }
 
   editSP(id,erp_code){
     const substring = ".";
@@ -111,16 +99,15 @@ export class ViewOwnStandardPartComponent implements OnInit {
 
 
   getAllSPByUserID(){
+    this.loading = true;
     this._standardPartService.getSPByUserID(this.id).subscribe((response) => {
       console.log(response);
       this.standard_parts = response;
-      this.tableDataReady = 1;
-      this.rerender();
+      this.loading = false;
     },
     error => {
-      this.tableDataReady = 1;
       this._toastrService.show(
-        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to login!</span> <span data-notify="message">Please check your credentials! Please contact the support, if needed!</span></div>',
+        '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Fail to retrieve!</span> <span data-notify="message">Please contact the support, if needed!</span></div>',
         "",
         {
           timeOut: 1000,
@@ -136,12 +123,4 @@ export class ViewOwnStandardPartComponent implements OnInit {
     });
   }
 
-  rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
-    });
-  }
 }

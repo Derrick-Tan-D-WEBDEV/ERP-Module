@@ -15,15 +15,10 @@ import { EmployeeService } from 'src/app/services/employee.service';
   templateUrl: './view-user.component.html',
   styleUrls: ['./view-user.component.scss']
 })
-export class ViewUserComponent implements OnInit,AfterViewInit {
-  @ViewChild(DataTableDirective) dtElement: DataTableDirective;
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject();
-  
+export class ViewUserComponent implements OnInit {
+  loading: boolean = true;
   users:any; 
   actionRole:any;
-  sp_category:any;
-  tableDataReady:any = 1;
   constructor(private _chRef: ChangeDetectorRef,private _employeeSerivce:EmployeeService,private _standardPartService:StandardPartsService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
@@ -33,24 +28,17 @@ export class ViewUserComponent implements OnInit,AfterViewInit {
     }
     this.actionRole = this._authService.getActionRole();
     console.log(this.actionRole);
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      scrollX: true
-    };
+
     this.getAllUser();
   }
 
-  ngAfterViewInit() {
-    this.dtTrigger.next();
-  }
 
   getAllUser(){
-    this.tableDataReady = 1;
+    this.loading = true;
     this._employeeSerivce.getAllUser().subscribe((response) => {
       console.log(response);
       this.users = response.allUser;
-      this.rerender();
-      this.tableDataReady = 1;
+      this.loading = false;
     },
     error => {
       this._toastrService.show(
@@ -112,12 +100,4 @@ export class ViewUserComponent implements OnInit,AfterViewInit {
     });
   }
 
-  rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
-    });
-  }
 }

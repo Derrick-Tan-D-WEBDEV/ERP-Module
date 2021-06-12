@@ -15,14 +15,14 @@ import Swal from 'sweetalert2';
   templateUrl: './view-recovery.component.html',
   styleUrls: ['./view-recovery.component.scss']
 })
-export class ViewRecoveryComponent implements OnInit,AfterViewInit {
+export class ViewRecoveryComponent implements OnInit {
   @ViewChild(DataTableDirective) dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   
-  recovery:any; 
+  standard_parts:any; 
   actionRole:any;
-  tableDataReady:any = 1;
+  loading:boolean = true;
   constructor(private _chRef: ChangeDetectorRef,private _employeeService:EmployeeService,private _standardPartService:StandardPartsService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
@@ -32,23 +32,15 @@ export class ViewRecoveryComponent implements OnInit,AfterViewInit {
     }
     this.actionRole = this._authService.getActionRole();
     console.log(this.actionRole);
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      scrollX: true
-    };
     this.getAllRecovery();
   }
 
-  ngAfterViewInit() {
-    this.dtTrigger.next();
-  }
 
   getAllRecovery(){
-    this.tableDataReady = 1;
+    this.loading = true;
     this._standardPartService.getAllRecovery().subscribe((response) => {
-      this.recovery = response.result;
-      this.rerender();
-      this.tableDataReady = 1;
+      this.standard_parts = response.result;
+      this.loading = false;
     },
     error => {
       this._toastrService.show(
@@ -120,15 +112,6 @@ export class ViewRecoveryComponent implements OnInit,AfterViewInit {
       }
     });
 
-  }
-
-  rerender(): void {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-      // Call the dtTrigger to rerender again
-      this.dtTrigger.next();
-    });
   }
 
 }
