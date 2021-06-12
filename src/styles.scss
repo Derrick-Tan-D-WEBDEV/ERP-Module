@@ -319,3 +319,18 @@ carousel{
     color: white!important;
     background-color: #f56036!important;
 }
+
+.table-wrap {
+    width: 100%;
+    overflow: auto;
+}
+
+
+.p-datatable {
+    table-layout: fixed;
+    width: 200%;
+}
+
+.p-paginator{
+    justify-content: left!important;
+}

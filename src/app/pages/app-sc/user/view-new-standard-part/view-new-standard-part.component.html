@@ -1,0 +1,239 @@
+
+
+<div class=" header bg-dark pb-6">
+    <div class=" container-fluid">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-6 col-7">
+            <h6 class=" h2 text-white d-inline-block mb-0">View Standard Part</h6>
+  
+            <nav
+              aria-label="breadcrumb"
+              class=" d-none d-md-inline-block ml-md-4"
+            >
+              <ol class=" breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class=" breadcrumb-item">
+                  <a href="javascript:void(0)"> <i class=" fas fa-home"> </i> </a>
+                </li>
+  
+                <li class=" breadcrumb-item">
+                  <a href="javascript:void(0)"> View Standard Part </a>
+                </li>
+  
+              </ol>
+            </nav>
+          </div>
+        </div>
+  
+        <div class=" row">
+            <div class=" col-sm-12">
+              <button class="btn btn-default" (click)="export_excel()">Export as Excel</button>
+              <br><br>
+            </div>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  
+  <div class=" container-fluid mt--6">
+    <div class="row">
+      <div class="col-sm-12" >
+        <div class=" card card-stats">
+          <div class=" card-body">
+            <div class=" row">
+                <div class="col-12 mb-2">
+                    <div class="badge badge-warning">Sort By Category</div>
+                    <br><br>
+                    <select
+                        class="form-control"
+                        placeholder="Category"  
+                        id="category_id"
+                        (change)="categoryOnChange($event.target.value)"
+                    >
+                        <option value="" selected>--Select a category--</option>
+                        <option *ngFor="let spc of sp_category;let i = index" value="{{spc.id}}" >{{spc.type}} - {{spc.description}}</option>
+                    </select>
+                    <hr>
+                </div>
+                <div class="col-12">
+                    <div class="table-wrap">
+                        <p-table #dt1 [value]="standard_parts" [(selection)]="selectedStadardParts" dataKey="id" styleClass="p-datatable" [rowHover]="true"
+                        [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]" [loading]="loading"
+                        [scrollable]="true" columnResizeMode="expand"  [responsive]="true" 
+                        [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                        [filterDelay]="0" [globalFilterFields]="['erp_code']">
+                            <ng-template pTemplate="caption">
+                                <div class="p-d-flex text-left">
+                                    <span class="p-input-icon-left ml-3">
+                                        <i class="pi pi-search"></i>
+                                        <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+                                    </span>
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th *ngIf="actionRole == 'Admin'" >
+                                        Actions
+                                    </th>
+                                    <th pSortableColumn="id">
+                                        ID <p-sortIcon field="id"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="erp_code">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            ERP Code 
+                                            <p-sortIcon field="erp_code"></p-sortIcon>
+                                            <p-columnFilter type="text" field="erp_code" display="menu"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="type_item">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Type Item 
+                                            <p-sortIcon field="type_item"></p-sortIcon>
+                                            <p-columnFilter type="text" field="type_item" display="menu"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="product_part_number">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Product Part Number 
+                                            <p-sortIcon field="product_part_number"></p-sortIcon>
+                                            <p-columnFilter type="text" field="product_part_number" display="menu"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="greatech_drawing_naming">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Greatech Drawing Naming 
+                                            <p-sortIcon field="greatech_drawing_naming"></p-sortIcon>
+                                            <p-columnFilter type="text" field="greatech_drawing_naming" display="menu"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="description">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Description
+                                            <p-sortIcon field="description"></p-sortIcon>
+                                            <p-columnFilter type="text" field="description" display="menu"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="brand">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Brand 
+                                            <p-sortIcon field="brand"></p-sortIcon>
+                                            <p-columnFilter type="text" field="brand" display="menu"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="uom">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            UOM
+                                            <p-sortIcon field="uom"></p-sortIcon>
+                                            <p-columnFilter type="text" field="uom" display="menu"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="folder_location">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Folder Location
+                                            <p-sortIcon field="folder_location"></p-sortIcon>
+                                            <p-columnFilter type="text" field="folder_location" display="menu"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="insert_date">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Insert Date
+                                            <p-sortIcon field="insert_date"></p-sortIcon>
+                                            <p-columnFilter type="text" field="insert_date" display="menu"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="update_date">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Update Date
+                                            <p-sortIcon field="update_date"></p-sortIcon>
+                                            <p-columnFilter type="text" field="update_date" display="menu"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="remark">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Remark
+                                            <p-sortIcon field="remark"></p-sortIcon>
+                                            <p-columnFilter type="text" field="remark" display="menu"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="assign_material">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Assign Material
+                                            <p-sortIcon field="assign_material"></p-sortIcon>
+                                            <p-columnFilter type="text" field="assign_material" display="menu"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="assign_weight">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Assign Weight
+                                            <p-sortIcon field="assign_weight"></p-sortIcon>
+                                            <p-columnFilter type="text" field="assign_weight" display="menu"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="category_type">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Category Type
+                                            <p-sortIcon field="category_type"></p-sortIcon>
+                                            <p-columnFilter type="text" field="category_type" display="menu"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="category_desc">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Category
+                                            <p-sortIcon field="category_desc"></p-sortIcon>
+                                            <p-columnFilter type="text" field="category_desc" display="menu"></p-columnFilter>
+                                        </div>
+                                    </th>
+                                    <th pSortableColumn="fullname">
+                                        <div class="p-d-flex p-jc-between p-ai-center">
+                                            Update By
+                                            <p-sortIcon field="fullname"></p-sortIcon>
+                                            <p-columnFilter type="text" field="fullname" display="menu"></p-columnFilter>
+                                        </div>
+                                    </th>
+
+                                </tr>
+        
+                            </ng-template>
+                            <ng-template pTemplate="body" let-sp>
+                                <tr>
+                                    <td>
+                                        <button class="btn btn-warning" (click)="editSP(sp.id,sp.erp_code)"><i class="fas fa-pen"></i></button>
+                                        <button class="btn btn-danger" (click)="deleteSP(sp.id)"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                    <td>{{sp.id}}</td>
+                                    <td>{{sp.erp_code}}</td>
+                                    <td>{{sp.type_item}}</td>
+                                    <td>{{sp.product_part_number}}</td>
+                                    <td>{{sp.greatech_drawing_naming}}</td>
+                                    <td>{{sp.description}}</td>
+                                    <td>{{sp.brand}}</td>
+                                    <td>{{sp.uom}}</td>
+                                    <td>{{sp.folder_location}}</td>
+                                    <td>{{sp.insert_date}}</td>
+                                    <td>{{sp.update_date}}</td>
+                                    <td>{{sp.remark}}</td>
+                                    <td>{{sp.assign_material}}</td>
+                                    <td>{{sp.assign_weight}}</td>
+                                    <td>{{sp.category_type}}</td>
+                                    <td>{{sp.category_desc}}</td>
+                                    <td>{{sp.fullname}}</td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="5">No standard parts found.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+
+                </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div> 
+  </div>
+  
+  

@@ -18,6 +18,8 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DataTablesModule } from 'angular-datatables';
+import { PaginatorModule } from 'primeng/paginator';
+import { Table, TableModule } from 'primeng/table';
 
 @NgModule({
   imports: [
@@ -34,7 +36,10 @@ import { DataTablesModule } from 'angular-datatables';
     GraphQLModule,
     KonvaModule,
     DragDropModule,
-    DataTablesModule
+    DataTablesModule,
+    PaginatorModule,
+    TableModule,
+    
   ],
   declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, UserLayoutComponent ],
   providers: [],

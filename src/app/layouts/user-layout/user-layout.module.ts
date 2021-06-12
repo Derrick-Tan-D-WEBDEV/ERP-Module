@@ -1,3 +1,4 @@
+import { TableModule } from 'primeng/table';
 import { ViewViewerComponent } from './../../pages/app-sc/user/view-viewer/view-viewer.component';
 import { ViewUserComponent } from './../../pages/app-sc/user/view-user/view-user.component';
 import { EditViewerComponent } from './../../pages/app-sc/user/edit-viewer/edit-viewer.component';
@@ -29,7 +30,19 @@ import { AddStandardPartMsComponent } from 'src/app/pages/app-sc/user/add-standa
 import { ProfileComponent } from 'src/app/pages/app-sc/user/profile/profile.component';
 import { ViewOnlyRecoveryComponent } from 'src/app/pages/app-sc/user/view-only-recovery/view-only-recovery.component';
 import { ViewRecoveryComponent } from 'src/app/pages/app-sc/user/view-recovery/view-recovery.component';
+import { PaginatorModule } from 'primeng/paginator';
+import { ViewNewStandardPartComponent } from 'src/app/pages/app-sc/user/view-new-standard-part/view-new-standard-part.component';
 
+import {CalendarModule} from 'primeng/calendar';
+import {SliderModule} from 'primeng/slider';
+import {DialogModule} from 'primeng/dialog';
+import {MultiSelectModule} from 'primeng/multiselect';
+import {ContextMenuModule} from 'primeng/contextmenu';
+import {ButtonModule} from 'primeng/button';
+import {ToastModule} from 'primeng/toast';
+import {InputTextModule} from 'primeng/inputtext';
+import {ProgressBarModule} from 'primeng/progressbar';
+import {DropdownModule} from 'primeng/dropdown';
 @NgModule({
   imports: [
     CommonModule,
@@ -44,7 +57,17 @@ import { ViewRecoveryComponent } from 'src/app/pages/app-sc/user/view-recovery/v
     ChartsModule,
     DragDropModule,
     MonacoEditorModule.forRoot(),
-    DataTablesModule,
+    TableModule,
+    CalendarModule,
+    SliderModule,
+    DialogModule,
+    MultiSelectModule,
+    ContextMenuModule,
+    ButtonModule,
+    ToastModule,
+    InputTextModule,
+    ProgressBarModule,
+    DropdownModule
   ],
   declarations: [
     DashboardComponent,
@@ -61,7 +84,8 @@ import { ViewRecoveryComponent } from 'src/app/pages/app-sc/user/view-recovery/v
     ViewUserComponent,
     ViewViewerComponent,
     ViewOnlyRecoveryComponent,
-    ViewRecoveryComponent
+    ViewRecoveryComponent,
+    ViewNewStandardPartComponent
   ]
 })
 export class UserLayoutModule {}

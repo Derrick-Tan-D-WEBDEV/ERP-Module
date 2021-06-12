@@ -15,6 +15,7 @@ import { ViewUserComponent } from 'src/app/pages/app-sc/user/view-user/view-user
 import { ViewViewerComponent } from 'src/app/pages/app-sc/user/view-viewer/view-viewer.component';
 import { ViewOnlyRecoveryComponent } from 'src/app/pages/app-sc/user/view-only-recovery/view-only-recovery.component';
 import { ViewRecoveryComponent } from 'src/app/pages/app-sc/user/view-recovery/view-recovery.component';
+import { ViewNewStandardPartComponent } from 'src/app/pages/app-sc/user/view-new-standard-part/view-new-standard-part.component';
 
 export const UserLayoutRoutes: Routes = [
   {
@@ -28,7 +29,7 @@ export const UserLayoutRoutes: Routes = [
       },
       {
         path: "view-standard-part",
-        component: ViewStandardPartComponent,
+        component: ViewNewStandardPartComponent,
         canActivate:[AuthGuard],
         data: {expectedRole:'User'}
       },
@@ -107,6 +108,12 @@ export const UserLayoutRoutes: Routes = [
       {
         path: "view-recovery",
         component: ViewRecoveryComponent,
+        canActivate:[AuthGuard],
+        data: {expectedRole:'User'}
+      },
+      {
+        path: "view-new-standard-part",
+        component: ViewNewStandardPartComponent,
         canActivate:[AuthGuard],
         data: {expectedRole:'User'}
       }
