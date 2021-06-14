@@ -67,7 +67,8 @@ import {DropdownModule} from 'primeng/dropdown';
     ToastModule,
     InputTextModule,
     ProgressBarModule,
-    DropdownModule
+    DropdownModule,
+    DataTablesModule
   ],
   declarations: [
     DashboardComponent,

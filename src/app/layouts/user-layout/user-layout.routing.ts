@@ -113,7 +113,7 @@ export const UserLayoutRoutes: Routes = [
       },
       {
         path: "view-new-standard-part",
-        component: ViewNewStandardPartComponent,
+        component: ViewStandardPartComponent,
         canActivate:[AuthGuard],
         data: {expectedRole:'User'}
       }
