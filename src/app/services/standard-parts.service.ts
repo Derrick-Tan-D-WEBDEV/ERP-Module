@@ -29,7 +29,7 @@ export class StandardPartsService {
       'Something bad happened; please try again later.');
   };
 
-  base_path = 'http://192.168.0.24:4000/SP/';
+  base_path = 'http://192.168.0.24:4100/SP/';
 
   checkPPNBrand(product_part_number, brand):Observable<any>{
     return this.httpClient.post<any>(this.base_path+'checkPPNBrand',{product_part_number, brand}).pipe(

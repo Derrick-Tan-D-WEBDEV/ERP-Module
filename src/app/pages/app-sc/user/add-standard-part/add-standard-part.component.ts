@@ -25,6 +25,7 @@ export class AddStandardPartComponent implements OnInit {
   addForm: FormGroup;
   isSubmitted:boolean;
   category_id:any = 0;
+  productHandle:any = false;
   constructor(private _standardPartService:StandardPartsService,private _stadardPartTypeItemService:StandardPartTypeItemService,private _chRef: ChangeDetectorRef,private _standardPartCategoryService:StandardPartCategoryService,private _authService: AuthService,private router:Router,private formBuilder:FormBuilder,private _toastrService: ToastrService) { }
 
   ngOnInit() {
@@ -73,6 +74,7 @@ export class AddStandardPartComponent implements OnInit {
     if(values["product_part_number"] != "" && values["brand"] != ""){
       this._standardPartService.checkPPNBrand(values["product_part_number"],values["brand"]).subscribe((response) => {
         if(response.status){
+          this.productHandle = true;
           this._toastrService.show(
             '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">'+response.message+'</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
             "",
@@ -118,7 +120,23 @@ export class AddStandardPartComponent implements OnInit {
     if(values["sp_category"] != 8){
       values["vendor"] = null;
     }
-    if(this.addForm.invalid){
+    if(this.addForm.invalid && this.productHandle == true){
+      if(this.productHandle){
+        this._toastrService.show(
+          '<span class="alert-icon ni ni-bell-55" data-notify="icon"></span> <div class="alert-text"</div> <span class="alert-title" data-notify="title">Please check your product part number and brand!</span> <span data-notify="message">Please contact the support team, if needed!</span></div>',
+          "",
+          {
+            timeOut: 3000,
+            closeButton: true,
+            enableHtml: true,
+            tapToDismiss: false,
+            titleClass: "alert-title",
+            positionClass: "toast-bottom-center",
+            toastClass:
+              "ngx-toastr alert alert-dismissible alert-danger alert-notify"
+          }
+        );
+      }
       return;
     }
     else{

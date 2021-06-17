@@ -41,7 +41,7 @@
             <div class=" row">
               <div class="col-12">
                 <div class="table-wrap">
-                  <p-table #dt1 [value]="users" [(selection)]="selectedUsers" dataKey="id" styleClass="p-datatable-users" [rowHover]="true"
+                  <p-table #dt1 [value]="users"  dataKey="id" styleClass="p-datatable-users" [rowHover]="true"
                   [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]" [loading]="loading"
                   [scrollable]="true" columnResizeMode="expand"  [responsive]="true" 
                   [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"

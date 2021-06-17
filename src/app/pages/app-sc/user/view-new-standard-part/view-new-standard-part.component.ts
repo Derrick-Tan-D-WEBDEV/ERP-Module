@@ -107,6 +107,18 @@ export class ViewNewStandardPartComponent implements OnInit {
     });
   }
 
+  export_excel(){
+    var element = document.createElement('a');
+    element.setAttribute('href', 'http://192.168.0.24:4100/SP/SPfiles');
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
+  }
+
   editSP(id,erp_code){
     const substring = ".";
     console.log(erp_code);

@@ -203,7 +203,7 @@ export class ViewStandardPartComponent implements OnInit,AfterViewInit {
 
   export_excel(){
     var element = document.createElement('a');
-    element.setAttribute('href', 'http://192.168.0.24:4000/SP/SPfiles');
+    element.setAttribute('href', 'http://192.168.0.24:4100/SP/SPfiles');
   
     element.style.display = 'none';
     document.body.appendChild(element);
