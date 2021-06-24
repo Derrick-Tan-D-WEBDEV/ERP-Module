@@ -38,36 +38,9 @@
       <div class="col-sm-12" >
         <div class=" card card-stats">
           <div class=" card-body">
+            <h2>Viewers' Data</h2>
             <div class=" row">
-              <!-- <div class="col-12 text-center">
-                
-                <table #myTable datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" *ngIf="tableDataReady == 1"  class="display nowrap" cellspacing="0" width="100%">
-                  <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Employee ID</th>
-                        <th>Full Name</th>
-                        <th>Name</th>
-                        <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody class="table-sb" >
-                    <tr *ngFor="let v of viewer">
-                      <td>{{v.id}}</td>
-                      <td>{{v.employeeID}}</td>
-                      <td>{{v.fullname}}</td>
-                      <td>{{v.name}}</td>
-                      <td >
-                        <button class="btn btn-warning" (click)="editViewer(v.id)"><i class="fas fa-pen"></i></button>
-                        <button class="btn btn-danger" (click)="deleteViewer(v.id)"><i class="fas fa-trash"></i></button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div *ngIf="tableDataReady == 0">
-                  Loading
-                </div>
-              </div> -->
+
               <div class="col-12">
                 <div class="table-wrap">
                   <p-table #dt1 [value]="viewer"  dataKey="id" styleClass="p-datatable-users" [rowHover]="true"
